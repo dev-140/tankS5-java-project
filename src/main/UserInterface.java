@@ -10,7 +10,7 @@ import java.io.IOException;
 public class UserInterface extends JFrame {
 	
 	// change default app icon
-	ImageIcon logo = new ImageIcon(".//images//hasbullah.jpg");
+	ImageIcon logo = new ImageIcon(".//images//item1.png");
 	
 	private static final long serialVersionUID = 1L;
 	JPanel sideBarPanel = new JPanel();
