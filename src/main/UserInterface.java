@@ -40,6 +40,10 @@ public class UserInterface extends JFrame {
 	JLabel feature3 = new JLabel();
 	JLabel modalRoomPrice = new JLabel();
 	JTextPane roomInfoDesc = new JTextPane();
+	
+	// checkout variables
+	RoundedButton checkinDateBtn = new RoundedButton("Choose date");
+	RoundedButton checkoutDateBtn = new RoundedButton("Choose date");
 
 	/**
 	 * Launch the application.
@@ -624,23 +628,82 @@ public class UserInterface extends JFrame {
 		borders();
 		
 //		modal
-		roomModal();
+//		roomModal();
 		modalBg.setVisible(false);
 
 //		side info panel
-		roomInfo("romanticRetreat", "homePanel");
+//		roomInfo("romanticRetreat", "homePanel");
 		
 //		home panel
-		homePanel();
+//		homePanel();
 
 //		amenities panel
-		amenitiesPanel();
+//		amenitiesPanel();
 		amenitiesPanel.setVisible(false);
 
 //		rooms panel
-		roomsPanel();
+//		roomsPanel();
 		roomsPanel.setVisible(false);
 
+		JPanel checkoutFirstPanel = new JPanel();
+		checkoutFirstPanel.setBounds(207, 0, 1005, 624);
+		getContentPane().add(checkoutFirstPanel);
+		checkoutFirstPanel.setLayout(null);
+		
+		JPanel rightBlueBorder = new JPanel();
+		rightBlueBorder.setBackground(new Color(0, 163, 255));
+		rightBlueBorder.setForeground(new Color(0, 163, 255));
+		rightBlueBorder.setBounds(912, 0, 93, 624);
+		checkoutFirstPanel.add(rightBlueBorder);
+		
+		JPanel checkoutOrderProdPanel = new JPanel();
+		checkoutOrderProdPanel.setBackground(new Color(255, 255, 255));
+		checkoutOrderProdPanel.setBounds(657, 0, 255, 624);
+		checkoutFirstPanel.add(checkoutOrderProdPanel);
+		
+		JLabel stepOneHeading = new JLabel("Select Date");
+		stepOneHeading.setFont(new Font("Helvetica", Font.BOLD, 20));
+		stepOneHeading.setBounds(44, 92, 108, 21);
+		checkoutFirstPanel.add(stepOneHeading);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(0, 163, 255));
+		panel_1.setBounds(44, 125, 562, 32);
+		checkoutFirstPanel.add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel steapHeading = new JLabel("Step 1");
+		steapHeading.setFont(new Font("Helvetica", Font.BOLD, 17));
+		steapHeading.setForeground(new Color(255, 255, 255));
+		steapHeading.setBounds(6, 6, 61, 20);
+		panel_1.add(steapHeading);
+		
+		JLabel selectDateLabel = new JLabel("Check-in Date:");
+		selectDateLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
+		selectDateLabel.setBounds(88, 180, 132, 21);
+		checkoutFirstPanel.add(selectDateLabel);
+		
+		JLabel selectedCheckinDate = new JLabel("March 10, 2023");
+		selectedCheckinDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		selectedCheckinDate.setHorizontalAlignment(SwingConstants.CENTER);
+		selectedCheckinDate.setBounds(88, 205, 124, 21);
+		checkoutFirstPanel.add(selectedCheckinDate);
+		
+		primaryBtn(checkinDateBtn, 88, 235, 38, 120, checkoutFirstPanel);
+		
+		JLabel selectedCheckoutDate = new JLabel("March 10, 2023");
+		selectedCheckoutDate.setHorizontalAlignment(SwingConstants.CENTER);
+		selectedCheckoutDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		selectedCheckoutDate.setBounds(424, 205, 124, 21);
+		checkoutFirstPanel.add(selectedCheckoutDate);
+		
+		JLabel selectDateLabel_1 = new JLabel("Check-out Date:");
+		selectDateLabel_1.setFont(new Font("Helvetica", Font.BOLD, 18));
+		selectDateLabel_1.setBounds(424, 180, 138, 21);
+		checkoutFirstPanel.add(selectDateLabel_1);
+		
+		primaryBtn(checkoutDateBtn, 424, 235, 38, 120, checkoutFirstPanel);
+//		
 //		side bar
 		sideBar();
 	}
