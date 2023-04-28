@@ -15,7 +15,7 @@ public class ReadJson {
     public static void fetchData(String roomData) {
         JSONParser jsonParser = new JSONParser();
 
-        try (FileReader reader = new FileReader("file path")) {
+        try (FileReader reader = new FileReader("C:\\\\Users\\\\Jerome Pascual\\\\Downloads\\\\data.json")) {
             Object obj = jsonParser.parse(reader);
             JSONArray roomList = (JSONArray) obj;
 

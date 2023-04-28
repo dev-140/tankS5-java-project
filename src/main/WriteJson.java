@@ -10,7 +10,7 @@ public class WriteJson {
 	@SuppressWarnings("unchecked")
 	public static void setData(String name, String order, String desc, String img) {
 		// Set the path to the JSON file
-        String filePath = "file path";
+        String filePath = "C:\\\\Users\\\\Jerome Pascual\\\\Downloads\\\\transaction-data.json";
 
         // Read the existing JSON data from the file
         JSONArray finalData = readJsonData(filePath);
