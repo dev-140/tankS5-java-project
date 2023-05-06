@@ -6,7 +6,18 @@ import javax.swing.border.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
+import com.toedter.calendar.JCalendar;
+import java.time.temporal.ChronoUnit;
 
 public class UserInterface extends JFrame {
 	
@@ -43,8 +54,14 @@ public class UserInterface extends JFrame {
 	JTextPane roomInfoDesc = new JTextPane();
 	
 	// checkout variables
+	JPanel dateChooserPanel = new JPanel();
 	RoundedButton checkinDateBtn = new RoundedButton("Choose date");
 	RoundedButton checkoutDateBtn = new RoundedButton("Choose date");
+	RoundedButton btnNewButton = new RoundedButton("Continue");
+	final JCalendar calendar = new JCalendar();
+	JLabel dateText = new JLabel();
+	LocalDate startDateF;
+	LocalDate endDateF;
 
 	/**
 	 * Launch the application.
@@ -615,37 +632,10 @@ public class UserInterface extends JFrame {
 			}
 		});
 	}
-	
-	public UserInterface() throws IOException {
-		
-//		Resources.main(null);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1212, 675);
-		getContentPane().setLayout(null);
-// 		set app icon 
-		setIconImage(logo.getImage());
 
-//		border bottom
-		borders();
-		
-//		modal
-//		roomModal();
-		modalBg.setVisible(false);
+// 		checkout first step
 
-//		side info panel
-//		roomInfo("romanticRetreat", "homePanel");
-		
-//		home panel
-//		homePanel();
-
-//		amenities panel
-//		amenitiesPanel();
-		amenitiesPanel.setVisible(false);
-
-//		rooms panel
-//		roomsPanel();
-		roomsPanel.setVisible(false);
-
+	public void checkoutFirstStep() {
 		JPanel checkoutFirstPanel = new JPanel();
 		checkoutFirstPanel.setBounds(207, 0, 1005, 624);
 		getContentPane().add(checkoutFirstPanel);
@@ -704,8 +694,155 @@ public class UserInterface extends JFrame {
 		checkoutFirstPanel.add(selectDateLabel_1);
 		
 		primaryBtn(checkoutDateBtn, 424, 235, 38, 120, checkoutFirstPanel);
-//		
+		
+		JLabel lblNewLabel_1 = new JLabel("Total Days:");
+		lblNewLabel_1.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
+		lblNewLabel_1.setBounds(256, 306, 81, 16);
+		checkoutFirstPanel.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("5 days");
+		lblNewLabel_3.setFont(new Font("Helvetica", Font.PLAIN, 13));
+		lblNewLabel_3.setBounds(339, 306, 61, 16);
+		checkoutFirstPanel.add(lblNewLabel_3);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(147, 147, 147));
+		panel_2.setBounds(88, 337, 481, 2);
+		checkoutFirstPanel.add(panel_2);
+		
+		primaryBtn(btnNewButton, 261, 375, 38, 120, checkoutFirstPanel);
+	}
+	
+	public void dateConverter(String selectedDate) {
+		Date checkinDate = calendar.getDate();
+		DateFormat dateFormat = new SimpleDateFormat("MMMM-dd-yyyy");
+		DateFormat dateFormatYF = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat outputDateFormat = new SimpleDateFormat("MMMM dd yyyy");
+		String strDate = dateFormat.format(checkinDate);
+		String strDate2 = dateFormatYF.format(checkinDate);
+		LocalDate conDate = LocalDate.parse(strDate2, DateTimeFormatter.ISO_LOCAL_DATE);
+		Date date;
+
+		try {
+			date = dateFormat.parse(strDate);
+			String englishDate = outputDateFormat.format(date);
+			dateText.setText(englishDate);
+			if (selectedDate == "startDate") {
+				startDateF = conDate;
+				System.out.println("start");
+			} else if (selectedDate == "endDate") {
+				endDateF = conDate;
+				System.out.println("end");
+			}
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+//	calendar panel
+	
+	public void calendarPanel() {
+		dateChooserPanel.setBounds(207, 0, 1005, 624);
+		getContentPane().add(dateChooserPanel);
+		dateChooserPanel.setLayout(null);
+
+		JPanel modal = new RoundedPanel(20, Color.white);
+		modal.setBounds(128, 106, 780, 437);
+		dateChooserPanel.add(modal);
+		modal.setLayout(null);
+
+		JLabel checkinHeading = new JLabel("Check-in");
+		checkinHeading.setBounds(329, 21, 123, 30);
+		modal.add(checkinHeading);
+		checkinHeading.setFont(new Font("Helvetica", Font.BOLD, 29));
+
+		JPanel headingBorder = new JPanel();
+		headingBorder.setBounds(317, 50, 152, 10);
+		modal.add(headingBorder);
+		headingBorder.setBackground(new Color(160, 160, 160));
+
+		JPanel calendarPanel = new JPanel();
+		calendarPanel.setBounds(82, 105, 628, 246);
+		modal.add(calendarPanel);
+//		calendar.addPropertyChangeListener(new PropertyChangeListener() {
+//			public void propertyChange(PropertyChangeEvent evt) {
+//				dateConverter();
+//			}
+//		});
+
+		calendarPanel.add(calendar);
+
+		JButton startDateBtn = new JButton("New button");
+		startDateBtn.setBounds(335, 372, 117, 29);
+		modal.add(startDateBtn);
+
+		dateText.setFont(new Font("Helvetica", Font.BOLD, 18));
+		dateText.setHorizontalAlignment(SwingConstants.CENTER);
+		dateText.setBounds(311, 72, 171, 21);
+		modal.add(dateText);
+		startDateBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				dateConverter("startDate");
+				System.out.println("start date is: " + startDateF);
+			}
+		});
+
+		JButton endDateBtn = new JButton("calcDate");
+		endDateBtn.setBounds(466, 372, 117, 29);
+		modal.add(endDateBtn);
+
+		endDateBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				dateConverter("endDate");
+				long daysBetween = ChronoUnit.DAYS.between(startDateF, endDateF);
+//				System.out.println("ssss" + daysBetween);
+				if (daysBetween <= 0) {
+					System.out.println("please select another date");
+				} else {
+					System.out.println("valid");
+				}
+			}
+		});
+	}
+
+	public UserInterface() throws IOException {
+//		Resources.main(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1212, 675);
+		getContentPane().setLayout(null);
+// 		set app icon 
+		setIconImage(logo.getImage());
+
+//		border bottom
+		borders();
+
+//		modal
+//		roomModal();
+		modalBg.setVisible(false);
+
+//		side info panel
+//		roomInfo("romanticRetreat", "homePanel");
+
+//		home panel
+//		homePanel();
+
+//		amenities panel
+//		amenitiesPanel();
+		amenitiesPanel.setVisible(false);
+
+//		rooms panel
+//		roomsPanel();
+		roomsPanel.setVisible(false);
+		
+		checkoutFirstStep();
+		
+		calendarPanel();
+		dateChooserPanel.setVisible(false);
+		
 //		side bar
 		sideBar();
+
 	}
 }
