@@ -1,4 +1,3 @@
-//123123
 package main;
 import java.awt.EventQueue;
 import javax.swing.*;
