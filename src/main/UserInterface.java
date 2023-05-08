@@ -48,7 +48,7 @@ public class UserInterface extends JFrame {
 	RoundedButton cancelCheckoutBtn = new RoundedButton("Cancel");
 	
 	// room modal variables
-	String modalSetRoom;
+	String modalSetRoom = "romanticRetreat";
 	JLabel roomModalTitle = new JLabel();
 	JLabel feature1 = new JLabel();
 	JLabel feature2 = new JLabel();
@@ -236,18 +236,18 @@ public class UserInterface extends JFrame {
 		prodCardsPanel.add(prodCardImg);
 
 		JLabel prodCardName = new JLabel(roomName);
-		prodCardName.setFont(new Font("Helvetica", Font.BOLD, 15));
+		prodCardName.setFont(new Font("Helvetica", Font.BOLD, 10));
 		prodCardName.setBounds(6, 124, 180, 28);
 		prodCardsPanel.add(prodCardName);
 
 		JLabel prodCardRoomPrice = new JLabel(roomPrice);
-		prodCardRoomPrice.setFont(new Font("Helvetica", Font.PLAIN, 13));
+		prodCardRoomPrice.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		prodCardRoomPrice.setBounds(6, 151, 180, 16);
 		prodCardsPanel.add(prodCardRoomPrice);
 
 		RoundedButton prodCardBtn = new RoundedButton("View");
 		prodCardBtn.setBackground(new Color(255, 255, 255));
-		prodCardBtn.setFont(new Font("Helvetica", Font.PLAIN, 13));
+		prodCardBtn.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		prodCardBtn.setBounds(6, 179, 180, 30);
 		primaryBtn(prodCardBtn, 6, 179, 30, 180, prodCardsPanel);
 	}
@@ -405,13 +405,13 @@ public class UserInterface extends JFrame {
 		roomsCardPanel.add(roomsCardImg);
 
 		JLabel roomsCardName = new JLabel(ReadJson.roomFName);
-		roomsCardName.setFont(new Font("Helvetica", Font.BOLD, 15));
+		roomsCardName.setFont(new Font("Helvetica", Font.BOLD, 13));
 		roomsCardName.setHorizontalAlignment(SwingConstants.CENTER);
 		roomsCardName.setBounds(45, 135, 108, 24);
 		roomsCardPanel.add(roomsCardName);
 
 		JLabel roomsCardPrice = new JLabel(ReadJson.roomSPrice);
-		roomsCardPrice.setFont(new Font("Helvetica", Font.PLAIN, 13));
+		roomsCardPrice.setFont(new Font("Helvetica", Font.PLAIN, 10));
 		roomsCardPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		roomsCardPrice.setBounds(45, 155, 108, 24);
 		roomsCardPanel.add(roomsCardPrice);
@@ -503,25 +503,10 @@ public class UserInterface extends JFrame {
 		Image image = new ImageIcon(this.getClass().getResource(ReadJson.dummyheroIcon)).getImage();
 		roomInfoImage.setIcon(new ImageIcon(image));
 
-		JLabel floorInfo = new JLabel("Floor: 1st");
-		floorInfo.setFont(new Font("Helvetica", Font.BOLD, 15));
-		floorInfo.setBounds(16, 272, 92, 16);
-		infoSidePanel.add(floorInfo);
-
-		JLabel roomNumber = new JLabel("Room number: 1");
-		roomNumber.setFont(new Font("Helvetica", Font.BOLD, 15));
-		roomNumber.setBounds(125, 272, 126, 16);
-		infoSidePanel.add(roomNumber);
-
-		JPanel roomBottomBorder = new JPanel();
-		roomBottomBorder.setBackground(new Color(0, 0, 0));
-		roomBottomBorder.setBounds(109, 272, 4, 16);
-		infoSidePanel.add(roomBottomBorder);
-
 		Color custom = Color.decode("#00A3FF");
 		JPanel roomInfoPriceBg = new RoundedPanel(20, custom);
 		roomInfoPriceBg.setBackground(new Color(255, 255, 255));
-		roomInfoPriceBg.setBounds(46, 300, 181, 36);
+		roomInfoPriceBg.setBounds(46, 260, 181, 36);
 		infoSidePanel.add(roomInfoPriceBg);
 		roomInfoPriceBg.setLayout(null);
 		
@@ -534,14 +519,14 @@ public class UserInterface extends JFrame {
 		txtRoomName.setForeground(new Color(126, 126, 126));
 		txtRoomName.setEditable(false);
 		txtRoomName.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		txtRoomName.setBounds(16, 352, 235, 110);
+		txtRoomName.setBounds(16, 310, 235, 110);
 		infoSidePanel.add(txtRoomName);
 		StyledDocument doc = txtRoomName.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 
-		primaryBtn(showMoreBtn, 46, 470, 38, 181, infoSidePanel);
+		primaryBtn(showMoreBtn, 46, 450, 38, 181, infoSidePanel);
 		showMoreBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				closeAllPanel(false);
@@ -556,7 +541,7 @@ public class UserInterface extends JFrame {
 			}
 		});
 		
-		primaryBtn(cancelCheckoutBtn, 46, 470, 38, 181, infoSidePanel);
+		primaryBtn(cancelCheckoutBtn, 46, 450, 38, 181, infoSidePanel);
 		cancelCheckoutBtn.setVisible(false);
 		cancelCheckoutBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -567,7 +552,7 @@ public class UserInterface extends JFrame {
 			}
 		});
 		
-		primaryBtn(bookBtn, 46, 518, 38, 181, infoSidePanel);
+		primaryBtn(bookBtn, 46, 498, 38, 181, infoSidePanel);
 		bookBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				closeAllPanel(true);
@@ -886,13 +871,13 @@ public class UserInterface extends JFrame {
 
 //		border bottom
 		borders();
-//		
+
 //		side info panel
 		roomInfo("romanticRetreat", "homePanel");
-//
+
 //		modal
 		roomModal();
-//
+		
 //		home panel
 		homePanel();
 
@@ -901,13 +886,13 @@ public class UserInterface extends JFrame {
 
 //		rooms panel
 		roomsPanel();
-//		
+	
 //		checkout panel
 		checkoutFirstStep();
-//		
+	
 //		calendar panel
 		calendarPanel();
-//		
+	
 //		side bar
 		sideBar();
 		
