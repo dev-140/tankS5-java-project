@@ -43,6 +43,9 @@ public class UserInterface extends JFrame {
 	JLabel roomInfoLabel = new JLabel();
 	JLabel roomInfoPrice = new JLabel();
 	JTextPane txtRoomName = new JTextPane();
+	RoundedButton bookBtn = new RoundedButton("Book now");
+	RoundedButton showMoreBtn = new RoundedButton("Show More");
+	RoundedButton cancelCheckoutBtn = new RoundedButton("Cancel");
 	
 	// room modal variables
 	String modalSetRoom;
@@ -54,6 +57,7 @@ public class UserInterface extends JFrame {
 	JTextPane roomInfoDesc = new JTextPane();
 	
 	// checkout variables
+	JPanel checkoutFirstPanel = new JPanel();
 	JPanel dateChooserPanel = new JPanel();
 	RoundedButton checkinDateBtn = new RoundedButton("Choose date");
 	RoundedButton checkoutDateBtn = new RoundedButton("Choose date");
@@ -62,7 +66,18 @@ public class UserInterface extends JFrame {
 	JLabel dateText = new JLabel();
 	LocalDate startDateF;
 	LocalDate endDateF;
-
+	RoundedButton startDateBtn = new RoundedButton("Confirm");
+	RoundedButton endDateBtn = new RoundedButton("Confirm");
+	JLabel checkinHeading = new JLabel("Check-in");
+	JLabel selectedCheckoutDate = new JLabel("Select Date");
+	JLabel checkInHeading = new JLabel("Check-in Date:");
+	JLabel selectedCheckinDate = new JLabel("Select Date");
+	JLabel selectDateLabel_1 = new JLabel("Check-out Date:");
+	String calendarParam = "startDate", startDateEng = "Select Date", endDateEng = "Select Date";
+	long totalDaysF = 0;
+	JLabel lblNewLabel_3 = new JLabel(totalDaysF +" days");
+	boolean isCheckout = false, isCheckin = false, isFirstComplete = false;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -83,6 +98,17 @@ public class UserInterface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	public void closeAllPanel(boolean removeSideBar) {
+		homePanel.setVisible(false);
+		amenitiesPanel.setVisible(false);
+		roomsPanel.setVisible(false);
+		checkoutFirstPanel.setVisible(false);
+		dateChooserPanel.setVisible(false);
+		modalBg.setVisible(false);
+		infoSidePanel.setVisible(removeSideBar);
+		isCheckout = false;
+	}
 
 	public static void primaryBtn(final JButton btnMain, final int posX, final int posY, final int height,
 			final int width, JPanel jPanel2) {
@@ -155,36 +181,33 @@ public class UserInterface extends JFrame {
 		primaryBtn(homeBtn, 25, 110, 38, 160, sideBarPanel);
 		homeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
+				closeAllPanel(true);
 				homePanel.setVisible(true);
-				amenitiesPanel.setVisible(false);
-				roomsPanel.setVisible(false);
-				infoSidePanel.setVisible(true);
-				modalBg.setVisible(false);
 				animatePanel(0, 207, homePanel);
+				isCheckout = false;
+				setCheckOutBtn();
 			}
 		});
 
 		primaryBtn(roomsBtn, 25, 170, 38, 160, sideBarPanel);
 		roomsBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				homePanel.setVisible(false);
-				amenitiesPanel.setVisible(false);
+				closeAllPanel(true);
 				roomsPanel.setVisible(true);
-				infoSidePanel.setVisible(true);
-				modalBg.setVisible(false);
 				animatePanel(0, 208, roomsPanel);
+				isCheckout = false;
+				setCheckOutBtn();
 			}
 		});
 		
 		primaryBtn(AmenitiesBtn, 25, 230, 38, 160, sideBarPanel);
 		AmenitiesBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				homePanel.setVisible(false);
+				closeAllPanel(false);
 				amenitiesPanel.setVisible(true);
-				roomsPanel.setVisible(false);
-				modalBg.setVisible(false);
-				infoSidePanel.setVisible(false);
 				animatePanel(0, 218, amenitiesPanel);
+				isCheckout = false;
+				setCheckOutBtn();
 			}
 		});
 		
@@ -431,6 +454,19 @@ public class UserInterface extends JFrame {
 		roomsCards("/room2.png", "fireplazeCozy", 485, 339);
 	}
 
+//	set checkout btn
+	public void setCheckOutBtn() {
+		if (isCheckout == true) {
+			bookBtn.setVisible(false);
+			showMoreBtn.setVisible(false);
+			cancelCheckoutBtn.setVisible(true);
+		} else {
+			bookBtn.setVisible(true);
+			showMoreBtn.setVisible(true);
+			cancelCheckoutBtn.setVisible(false);
+		}
+	}
+	
 //	room side info
 	public void roomInfo(String data, String panel) {
 		ReadJson.fetchData(data);
@@ -505,14 +541,10 @@ public class UserInterface extends JFrame {
 		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
 		doc.setParagraphAttributes(0, doc.getLength(), center, false);
 
-		RoundedButton showMoreBtn = new RoundedButton("Show More");
 		primaryBtn(showMoreBtn, 46, 470, 38, 181, infoSidePanel);
 		showMoreBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				homePanel.setVisible(false);
-				amenitiesPanel.setVisible(false);
-				roomsPanel.setVisible(false);
-				infoSidePanel.setVisible(false);
+				closeAllPanel(false);
 				modalBg.setVisible(true);
 				ReadJson.fetchData(modalSetRoom);
 				roomModalTitle.setText(ReadJson.roomFName);
@@ -523,9 +555,28 @@ public class UserInterface extends JFrame {
 				feature3.setText(ReadJson.feature3);
 			}
 		});
-//		
-		RoundedButton bookBtn = new RoundedButton("Book now");
+		
+		primaryBtn(cancelCheckoutBtn, 46, 470, 38, 181, infoSidePanel);
+		cancelCheckoutBtn.setVisible(false);
+		cancelCheckoutBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				isCheckout = false;
+				closeAllPanel(true);
+				homePanel.setVisible(true);
+				setCheckOutBtn();
+			}
+		});
+		
 		primaryBtn(bookBtn, 46, 518, 38, 181, infoSidePanel);
+		bookBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				closeAllPanel(true);
+				checkoutFirstPanel.setVisible(true);
+				animatePanel(0, 218, checkoutFirstPanel);
+				isCheckout = true;
+				setCheckOutBtn();
+			}
+		});
 	}	
 
 //	room modal
@@ -633,24 +684,11 @@ public class UserInterface extends JFrame {
 		});
 	}
 
-// 		checkout first step
-
+// 	checkout first step
 	public void checkoutFirstStep() {
-		JPanel checkoutFirstPanel = new JPanel();
-		checkoutFirstPanel.setBounds(207, 0, 1005, 624);
+		checkoutFirstPanel.setBounds(242, 0, 656, 624);
 		getContentPane().add(checkoutFirstPanel);
 		checkoutFirstPanel.setLayout(null);
-		
-		JPanel rightBlueBorder = new JPanel();
-		rightBlueBorder.setBackground(new Color(0, 163, 255));
-		rightBlueBorder.setForeground(new Color(0, 163, 255));
-		rightBlueBorder.setBounds(912, 0, 93, 624);
-		checkoutFirstPanel.add(rightBlueBorder);
-		
-		JPanel checkoutOrderProdPanel = new JPanel();
-		checkoutOrderProdPanel.setBackground(new Color(255, 255, 255));
-		checkoutOrderProdPanel.setBounds(657, 0, 255, 624);
-		checkoutFirstPanel.add(checkoutOrderProdPanel);
 		
 		JLabel stepOneHeading = new JLabel("Select Date");
 		stepOneHeading.setFont(new Font("Helvetica", Font.BOLD, 20));
@@ -669,38 +707,29 @@ public class UserInterface extends JFrame {
 		steapHeading.setBounds(6, 6, 61, 20);
 		panel_1.add(steapHeading);
 		
-		JLabel selectDateLabel = new JLabel("Check-in Date:");
-		selectDateLabel.setFont(new Font("Helvetica", Font.BOLD, 18));
-		selectDateLabel.setBounds(88, 180, 132, 21);
-		checkoutFirstPanel.add(selectDateLabel);
-		
-		JLabel selectedCheckinDate = new JLabel("March 10, 2023");
-		selectedCheckinDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
-		selectedCheckinDate.setHorizontalAlignment(SwingConstants.CENTER);
-		selectedCheckinDate.setBounds(88, 205, 124, 21);
-		checkoutFirstPanel.add(selectedCheckinDate);
-		
-		primaryBtn(checkinDateBtn, 88, 235, 38, 120, checkoutFirstPanel);
-		
-		JLabel selectedCheckoutDate = new JLabel("March 10, 2023");
+		checkInHeading.setFont(new Font("Helvetica", Font.BOLD, 18));
+		checkInHeading.setBounds(88, 180, 132, 21);
+		checkoutFirstPanel.add(checkInHeading);
+
 		selectedCheckoutDate.setHorizontalAlignment(SwingConstants.CENTER);
 		selectedCheckoutDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		selectedCheckoutDate.setBounds(424, 205, 124, 21);
 		checkoutFirstPanel.add(selectedCheckoutDate);
 		
-		JLabel selectDateLabel_1 = new JLabel("Check-out Date:");
+		selectedCheckinDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		selectedCheckinDate.setHorizontalAlignment(SwingConstants.CENTER);
+		selectedCheckinDate.setBounds(88, 205, 124, 21);
+		checkoutFirstPanel.add(selectedCheckinDate);
+		
 		selectDateLabel_1.setFont(new Font("Helvetica", Font.BOLD, 18));
 		selectDateLabel_1.setBounds(424, 180, 138, 21);
 		checkoutFirstPanel.add(selectDateLabel_1);
-		
-		primaryBtn(checkoutDateBtn, 424, 235, 38, 120, checkoutFirstPanel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Total Days:");
 		lblNewLabel_1.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(256, 306, 81, 16);
 		checkoutFirstPanel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_3 = new JLabel("5 days");
 		lblNewLabel_3.setFont(new Font("Helvetica", Font.PLAIN, 13));
 		lblNewLabel_3.setBounds(339, 306, 61, 16);
 		checkoutFirstPanel.add(lblNewLabel_3);
@@ -710,9 +739,38 @@ public class UserInterface extends JFrame {
 		panel_2.setBounds(88, 337, 481, 2);
 		checkoutFirstPanel.add(panel_2);
 		
+		primaryBtn(checkinDateBtn, 88, 235, 38, 120, checkoutFirstPanel);
+		checkinDateBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				closeAllPanel(false);
+				dateChooserPanel.setVisible(true);
+				endDateBtn.setVisible(false);
+				startDateBtn.setVisible(true);
+				checkinHeading.setText("Check-in");
+				calendarParam = "startDate";
+			}
+		});
+
+		primaryBtn(checkoutDateBtn, 424, 235, 38, 120, checkoutFirstPanel);
+		checkoutDateBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				if (isCheckin == true){
+					closeAllPanel(false);
+					dateChooserPanel.setVisible(true);
+					endDateBtn.setVisible(true);
+					startDateBtn.setVisible(false);
+					checkinHeading.setText("Check-out");
+					calendarParam = "endDate";
+				} else {
+					selectedCheckoutDate.setText("Check-in First");
+				}
+			}
+		});
+		
 		primaryBtn(btnNewButton, 261, 375, 38, 120, checkoutFirstPanel);
 	}
 	
+//	date converter method
 	public void dateConverter(String selectedDate) {
 		Date checkinDate = calendar.getDate();
 		DateFormat dateFormat = new SimpleDateFormat("MMMM-dd-yyyy");
@@ -729,9 +787,11 @@ public class UserInterface extends JFrame {
 			dateText.setText(englishDate);
 			if (selectedDate == "startDate") {
 				startDateF = conDate;
+				startDateEng = englishDate ;
 				System.out.println("start");
 			} else if (selectedDate == "endDate") {
 				endDateF = conDate;
+				endDateEng = englishDate;
 				System.out.println("end");
 			}
 			
@@ -740,9 +800,8 @@ public class UserInterface extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
+
 //	calendar panel
-	
 	public void calendarPanel() {
 		dateChooserPanel.setBounds(207, 0, 1005, 624);
 		getContentPane().add(dateChooserPanel);
@@ -753,8 +812,8 @@ public class UserInterface extends JFrame {
 		dateChooserPanel.add(modal);
 		modal.setLayout(null);
 
-		JLabel checkinHeading = new JLabel("Check-in");
-		checkinHeading.setBounds(329, 21, 123, 30);
+		checkinHeading.setBounds(291, 21, 200, 30);
+		checkinHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		modal.add(checkinHeading);
 		checkinHeading.setFont(new Font("Helvetica", Font.BOLD, 29));
 
@@ -766,42 +825,52 @@ public class UserInterface extends JFrame {
 		JPanel calendarPanel = new JPanel();
 		calendarPanel.setBounds(82, 105, 628, 246);
 		modal.add(calendarPanel);
-//		calendar.addPropertyChangeListener(new PropertyChangeListener() {
-//			public void propertyChange(PropertyChangeEvent evt) {
-//				dateConverter();
-//			}
-//		});
-
-		calendarPanel.add(calendar);
-
-		JButton startDateBtn = new JButton("New button");
-		startDateBtn.setBounds(335, 372, 117, 29);
-		modal.add(startDateBtn);
+		calendar.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent evt) {
+				dateConverter(calendarParam);
+			}
+		});
 
 		dateText.setFont(new Font("Helvetica", Font.BOLD, 18));
 		dateText.setHorizontalAlignment(SwingConstants.CENTER);
 		dateText.setBounds(311, 72, 171, 21);
 		modal.add(dateText);
+		
+		calendarPanel.add(calendar);
+		
+		primaryBtn(startDateBtn, 335, 372, 38, 160, modal);
+		
 		startDateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				dateConverter("startDate");
 				System.out.println("start date is: " + startDateF);
+				LocalDate today = LocalDate.now();
+				long daysBetween = ChronoUnit.DAYS.between(today, startDateF);
+				
+				if (daysBetween < 0) {
+					dateText.setText("Please select again");
+				} else {
+					selectedCheckinDate.setText(startDateEng);
+					closeAllPanel(true);
+					checkoutFirstPanel.setVisible(true);
+					isCheckin = true;
+				}
 			}
 		});
 
-		JButton endDateBtn = new JButton("calcDate");
-		endDateBtn.setBounds(466, 372, 117, 29);
-		modal.add(endDateBtn);
-
+		primaryBtn(endDateBtn, 335, 372, 38, 160, modal);
 		endDateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				dateConverter("endDate");
-				long daysBetween = ChronoUnit.DAYS.between(startDateF, endDateF);
-//				System.out.println("ssss" + daysBetween);
-				if (daysBetween <= 0) {
-					System.out.println("please select another date");
+				long dayBetween = ChronoUnit.DAYS.between(startDateF, endDateF);
+				
+				if (dayBetween <= 0) {
+					dateText.setText("Please select again");
 				} else {
-					System.out.println("valid");
+					selectedCheckoutDate.setText(endDateEng);
+					lblNewLabel_3.setText(dayBetween +" days");
+					closeAllPanel(true);
+					checkoutFirstPanel.setVisible(true);
 				}
 			}
 		});
@@ -817,32 +886,33 @@ public class UserInterface extends JFrame {
 
 //		border bottom
 		borders();
-
-//		modal
-//		roomModal();
-		modalBg.setVisible(false);
-
+//		
 //		side info panel
-//		roomInfo("romanticRetreat", "homePanel");
-
+		roomInfo("romanticRetreat", "homePanel");
+//
+//		modal
+		roomModal();
+//
 //		home panel
-//		homePanel();
+		homePanel();
 
 //		amenities panel
-//		amenitiesPanel();
-		amenitiesPanel.setVisible(false);
+		amenitiesPanel();
 
 //		rooms panel
-//		roomsPanel();
-		roomsPanel.setVisible(false);
-		
+		roomsPanel();
+//		
+//		checkout panel
 		checkoutFirstStep();
-		
+//		
+//		calendar panel
 		calendarPanel();
-		dateChooserPanel.setVisible(false);
-		
+//		
 //		side bar
 		sideBar();
+		
+		closeAllPanel(true);
+		homePanel.setVisible(true);
 
 	}
 }
