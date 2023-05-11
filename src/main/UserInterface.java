@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -17,12 +18,12 @@ import java.util.Date;
 
 import com.toedter.calendar.JCalendar;
 import java.time.temporal.ChronoUnit;
-
+import javax.swing.border.*;
 public class UserInterface extends JFrame {
-	
+
 	// change default app icon
 	ImageIcon logo = new ImageIcon("/sample-image-room-info.png");
-	
+
 	private static final long serialVersionUID = 1L;
 	JPanel sideBarPanel = new JPanel();
 	RoundedButton homeBtn = new RoundedButton("Home");
@@ -37,7 +38,7 @@ public class UserInterface extends JFrame {
 	JPanel roomsPanel = new JPanel();
 	JPanel modalBg = new JPanel();
 	JPanel infoSidePanel = new JPanel();
-	
+
 	// room side info
 	JLabel roomInfoLabel = new JLabel();
 	JLabel roomInfoPrice = new JLabel();
@@ -45,7 +46,7 @@ public class UserInterface extends JFrame {
 	RoundedButton bookBtn = new RoundedButton("Book now");
 	RoundedButton showMoreBtn = new RoundedButton("Show More");
 	RoundedButton cancelCheckoutBtn = new RoundedButton("Cancel");
-	
+
 	// room modal variables
 	String modalSetRoom = "romanticRetreat";
 	JLabel roomModalTitle = new JLabel();
@@ -54,7 +55,7 @@ public class UserInterface extends JFrame {
 	JLabel feature3 = new JLabel();
 	JLabel modalRoomPrice = new JLabel();
 	JTextPane roomInfoDesc = new JTextPane();
-	
+
 	// checkout variables
 	JPanel checkoutFirstPanel = new JPanel();
 	JPanel dateChooserPanel = new JPanel();
@@ -74,9 +75,15 @@ public class UserInterface extends JFrame {
 	JLabel selectDateLabel_1 = new JLabel("Check-out Date:");
 	String calendarParam = "startDate", startDateEng = "Select Date", endDateEng = "Select Date";
 	long totalDaysF = 0;
-	JLabel lblNewLabel_3 = new JLabel(totalDaysF +" days");
+	JLabel lblNewLabel_3 = new JLabel(totalDaysF + " days");
 	boolean isCheckout = false, isCheckin = false, isFirstComplete = false;
-	
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+
 	/**
 	 * Launch the application.
 	 */
@@ -97,7 +104,7 @@ public class UserInterface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	
+
 	public void closeAllPanel(boolean removeSideBar) {
 		homePanel.setVisible(false);
 		amenitiesPanel.setVisible(false);
@@ -117,7 +124,7 @@ public class UserInterface extends JFrame {
 		btnMain.setBorder(new LineBorder(new Color(179, 179, 179), 1, true));
 		btnMain.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnMain.setBounds(posX, posY, width, height);
-		
+
 		btnMain.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -198,7 +205,7 @@ public class UserInterface extends JFrame {
 				setCheckOutBtn();
 			}
 		});
-		
+
 		primaryBtn(AmenitiesBtn, 25, 230, 38, 160, sideBarPanel);
 		AmenitiesBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -209,7 +216,7 @@ public class UserInterface extends JFrame {
 				setCheckOutBtn();
 			}
 		});
-		
+
 		primaryBtn(receiptBtn, 25, 290, 38, 160, sideBarPanel);
 	}
 
@@ -235,18 +242,18 @@ public class UserInterface extends JFrame {
 		prodCardsPanel.add(prodCardImg);
 
 		JLabel prodCardName = new JLabel(roomName);
-		prodCardName.setFont(new Font("Helvetica", Font.BOLD, 10));
+		prodCardName.setFont(new Font("Helvetica", Font.BOLD, 15));
 		prodCardName.setBounds(6, 124, 180, 28);
 		prodCardsPanel.add(prodCardName);
 
 		JLabel prodCardRoomPrice = new JLabel(roomPrice);
-		prodCardRoomPrice.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		prodCardRoomPrice.setFont(new Font("Helvetica", Font.PLAIN, 13));
 		prodCardRoomPrice.setBounds(6, 151, 180, 16);
 		prodCardsPanel.add(prodCardRoomPrice);
 
 		RoundedButton prodCardBtn = new RoundedButton("View");
 		prodCardBtn.setBackground(new Color(255, 255, 255));
-		prodCardBtn.setFont(new Font("Helvetica", Font.PLAIN, 10));
+		prodCardBtn.setFont(new Font("Helvetica", Font.PLAIN, 13));
 		prodCardBtn.setBounds(6, 179, 180, 30);
 		primaryBtn(prodCardBtn, 6, 179, 30, 180, prodCardsPanel);
 	}
@@ -465,15 +472,15 @@ public class UserInterface extends JFrame {
 			cancelCheckoutBtn.setVisible(false);
 		}
 	}
-	
+
 //	room side info
 	public void roomInfo(String data, String panel) {
 		ReadJson.fetchData(data);
-		
+
 		roomInfoPrice.setText(ReadJson.roomSPrice);
 		roomInfoLabel.setText(ReadJson.roomFName);
 		txtRoomName.setText(ReadJson.roomDesc);
-		
+
 		infoSidePanel.setBackground(new Color(255, 255, 255));
 		infoSidePanel.setBounds(944, 0, 268, 647);
 		infoSidePanel.setLayout(null);
@@ -508,13 +515,13 @@ public class UserInterface extends JFrame {
 		roomInfoPriceBg.setBounds(46, 260, 181, 36);
 		infoSidePanel.add(roomInfoPriceBg);
 		roomInfoPriceBg.setLayout(null);
-		
+
 		roomInfoPrice.setForeground(new Color(255, 255, 255));
 		roomInfoPrice.setFont(new Font("Helvetica", Font.BOLD, 13));
 		roomInfoPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		roomInfoPrice.setBounds(6, 6, 169, 24);
 		roomInfoPriceBg.add(roomInfoPrice);
-		
+
 		txtRoomName.setForeground(new Color(126, 126, 126));
 		txtRoomName.setEditable(false);
 		txtRoomName.setFont(new Font("Helvetica", Font.PLAIN, 15));
@@ -539,7 +546,7 @@ public class UserInterface extends JFrame {
 				feature3.setText(ReadJson.feature3);
 			}
 		});
-		
+
 		primaryBtn(cancelCheckoutBtn, 46, 450, 38, 181, infoSidePanel);
 		cancelCheckoutBtn.setVisible(false);
 		cancelCheckoutBtn.addActionListener(new ActionListener() {
@@ -548,9 +555,16 @@ public class UserInterface extends JFrame {
 				closeAllPanel(true);
 				homePanel.setVisible(true);
 				setCheckOutBtn();
+				lblNewLabel_3.setText("0");
+				selectedCheckoutDate.setText("Select Date");
+				selectedCheckinDate.setText("Select Date");
+				startDateF = null;
+				endDateF = null;
+				isCheckin = false;
+				
 			}
 		});
-		
+
 		primaryBtn(bookBtn, 46, 498, 38, 181, infoSidePanel);
 		bookBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -561,95 +575,95 @@ public class UserInterface extends JFrame {
 				setCheckOutBtn();
 			}
 		});
-	}	
+	}
 
 //	room modal
 	public void roomModal() {
 		Color blueCircle = new Color(0, 163, 255);
 		Image image1 = new ImageIcon(this.getClass().getResource("/sample-image-room-info.png")).getImage();
-		
-	    modalBg.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.5f));
-	    modalBg.setBounds(209, 0, 1003, 647);
-	    getContentPane().add(modalBg);
-	    modalBg.setLayout(null);
 
-	    JPanel roomModal = new JPanel();
-	    roomModal.setBounds(178, 81, 547, 466);
-	    modalBg.add(roomModal);
-	    roomModal.setBackground(new Color(255, 255, 255));
-	    roomModal.setLayout(null);
-		
+		modalBg.setBackground(new Color(0.0f, 0.0f, 0.0f, 0.5f));
+		modalBg.setBounds(209, 0, 1003, 647);
+		getContentPane().add(modalBg);
+		modalBg.setLayout(null);
+
+		JPanel roomModal = new JPanel();
+		roomModal.setBounds(178, 81, 547, 466);
+		modalBg.add(roomModal);
+		roomModal.setBackground(new Color(255, 255, 255));
+		roomModal.setLayout(null);
+
 		JLabel lblNewLabel = new JLabel("Room Info");
 		lblNewLabel.setFont(new Font("Helvetica", Font.BOLD, 24));
 		lblNewLabel.setBounds(41, 21, 128, 45);
 		roomModal.add(lblNewLabel);
-		
+
 		JPanel borderBottomModal = new JPanel();
 		borderBottomModal.setBackground(new Color(160, 160, 160));
 		borderBottomModal.setBounds(41, 56, 117, 10);
 		roomModal.add(borderBottomModal);
-		
+
 		JPanel circleModal = new RoundedPanel(100, blueCircle);
 		circleModal.setBackground(new Color(255, 255, 255));
 		circleModal.setBounds(210, 29, 37, 37);
 		roomModal.add(circleModal);
-		
+
 		roomModalTitle.setFont(new Font("Helvetica", Font.BOLD, 24));
 		roomModalTitle.setBounds(259, 31, 232, 37);
 		roomModal.add(roomModalTitle);
-		
+
 		JLabel imageOne = new JLabel("");
 		imageOne.setBounds(43, 105, 235, 140);
 		roomModal.add(imageOne);
 		imageOne.setIcon(new ImageIcon(image1));
-		
+
 		JLabel imageTwo = new JLabel("");
 		imageTwo.setBounds(41, 268, 235, 140);
 		roomModal.add(imageTwo);
 		imageTwo.setIcon(new ImageIcon(image1));
-		
+
 		JLabel roomNumber = new JLabel("Room number: 1");
 		roomNumber.setHorizontalAlignment(SwingConstants.LEFT);
 		roomNumber.setFont(new Font("Helvetica", Font.BOLD, 18));
 		roomNumber.setBounds(308, 77, 196, 37);
 		roomModal.add(roomNumber);
-		
+
 		JPanel roomPrice = new RoundedPanel(25, blueCircle);
 		roomPrice.setBackground(new Color(255, 255, 255));
 		roomPrice.setBounds(308, 115, 189, 37);
 		roomModal.add(roomPrice);
 		roomPrice.setLayout(null);
-		
+
 		modalRoomPrice.setForeground(new Color(255, 255, 255));
 		modalRoomPrice.setBounds(6, 0, 177, 37);
 		roomPrice.add(modalRoomPrice);
 		modalRoomPrice.setHorizontalAlignment(SwingConstants.CENTER);
 		modalRoomPrice.setFont(new Font("Helvetica", Font.BOLD, 13));
-		
+
 		roomInfoDesc.setEnabled(false);
 		roomInfoDesc.setForeground(new Color(126, 126, 126));
 		roomInfoDesc.setFont(new Font("Helvetica", Font.PLAIN, 12));
 		roomInfoDesc.setText(ReadJson.roomDesc);
 		roomInfoDesc.setBounds(308, 164, 196, 88);
 		roomModal.add(roomInfoDesc);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Features:");
 		lblNewLabel_2.setFont(new Font("Helvetica", Font.BOLD, 13));
 		lblNewLabel_2.setBounds(308, 264, 82, 16);
 		roomModal.add(lblNewLabel_2);
-		
+
 		feature1.setFont(new Font("Helvetica", Font.PLAIN, 13));
 		feature1.setBounds(308, 290, 156, 16);
 		roomModal.add(feature1);
-		
+
 		feature2.setFont(new Font("Helvetica", Font.PLAIN, 13));
 		feature2.setBounds(308, 318, 156, 16);
 		roomModal.add(feature2);
-		
+
 		feature3.setFont(new Font("Helvetica", Font.PLAIN, 13));
 		feature3.setBounds(308, 346, 156, 16);
 		roomModal.add(feature3);
-		
+
 		JButton closeModalBtn = new RoundedButton("Close");
 		primaryBtn(closeModalBtn, 308, 387, 38, 160, roomModal);
 		closeModalBtn.addActionListener(new ActionListener() {
@@ -673,24 +687,24 @@ public class UserInterface extends JFrame {
 		checkoutFirstPanel.setBounds(242, 0, 656, 624);
 		getContentPane().add(checkoutFirstPanel);
 		checkoutFirstPanel.setLayout(null);
-		
+
 		JLabel stepOneHeading = new JLabel("Select Date");
 		stepOneHeading.setFont(new Font("Helvetica", Font.BOLD, 20));
 		stepOneHeading.setBounds(44, 92, 108, 21);
 		checkoutFirstPanel.add(stepOneHeading);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(0, 163, 255));
 		panel_1.setBounds(44, 125, 562, 32);
 		checkoutFirstPanel.add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		JLabel steapHeading = new JLabel("Step 1");
 		steapHeading.setFont(new Font("Helvetica", Font.BOLD, 17));
 		steapHeading.setForeground(new Color(255, 255, 255));
 		steapHeading.setBounds(6, 6, 61, 20);
 		panel_1.add(steapHeading);
-		
+
 		checkInHeading.setFont(new Font("Helvetica", Font.BOLD, 18));
 		checkInHeading.setBounds(88, 180, 132, 21);
 		checkoutFirstPanel.add(checkInHeading);
@@ -699,30 +713,30 @@ public class UserInterface extends JFrame {
 		selectedCheckoutDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		selectedCheckoutDate.setBounds(424, 205, 124, 21);
 		checkoutFirstPanel.add(selectedCheckoutDate);
-		
+
 		selectedCheckinDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
 		selectedCheckinDate.setHorizontalAlignment(SwingConstants.CENTER);
 		selectedCheckinDate.setBounds(88, 205, 124, 21);
 		checkoutFirstPanel.add(selectedCheckinDate);
-		
+
 		selectDateLabel_1.setFont(new Font("Helvetica", Font.BOLD, 18));
 		selectDateLabel_1.setBounds(424, 180, 138, 21);
 		checkoutFirstPanel.add(selectDateLabel_1);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Total Days:");
 		lblNewLabel_1.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(256, 306, 81, 16);
 		checkoutFirstPanel.add(lblNewLabel_1);
-		
+
 		lblNewLabel_3.setFont(new Font("Helvetica", Font.PLAIN, 13));
 		lblNewLabel_3.setBounds(339, 306, 61, 16);
 		checkoutFirstPanel.add(lblNewLabel_3);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(147, 147, 147));
 		panel_2.setBounds(88, 337, 481, 2);
 		checkoutFirstPanel.add(panel_2);
-		
+
 		primaryBtn(checkinDateBtn, 88, 235, 38, 120, checkoutFirstPanel);
 		checkinDateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -738,7 +752,7 @@ public class UserInterface extends JFrame {
 		primaryBtn(checkoutDateBtn, 424, 235, 38, 120, checkoutFirstPanel);
 		checkoutDateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if (isCheckin == true){
+				if (isCheckin == true) {
 					closeAllPanel(false);
 					dateChooserPanel.setVisible(true);
 					endDateBtn.setVisible(true);
@@ -750,10 +764,10 @@ public class UserInterface extends JFrame {
 				}
 			}
 		});
-		
+
 		primaryBtn(btnNewButton, 261, 375, 38, 120, checkoutFirstPanel);
 	}
-	
+
 //	date converter method
 	public void dateConverter(String selectedDate) {
 		Date checkinDate = calendar.getDate();
@@ -771,14 +785,14 @@ public class UserInterface extends JFrame {
 			dateText.setText(englishDate);
 			if (selectedDate == "startDate") {
 				startDateF = conDate;
-				startDateEng = englishDate ;
+				startDateEng = englishDate;
 				System.out.println("start");
 			} else if (selectedDate == "endDate") {
 				endDateF = conDate;
 				endDateEng = englishDate;
 				System.out.println("end");
 			}
-			
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -819,18 +833,18 @@ public class UserInterface extends JFrame {
 		dateText.setHorizontalAlignment(SwingConstants.CENTER);
 		dateText.setBounds(311, 72, 171, 21);
 		modal.add(dateText);
-		
+
 		calendarPanel.add(calendar);
-		
+
 		primaryBtn(startDateBtn, 335, 372, 38, 160, modal);
-		
+
 		startDateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				dateConverter("startDate");
 				System.out.println("start date is: " + startDateF);
 				LocalDate today = LocalDate.now();
 				long daysBetween = ChronoUnit.DAYS.between(today, startDateF);
-				
+
 				if (daysBetween < 0) {
 					dateText.setText("Please select again");
 				} else {
@@ -847,12 +861,12 @@ public class UserInterface extends JFrame {
 			public void actionPerformed(ActionEvent evt) {
 				dateConverter("endDate");
 				long dayBetween = ChronoUnit.DAYS.between(startDateF, endDateF);
-				
+
 				if (dayBetween <= 0) {
 					dateText.setText("Please select again");
 				} else {
 					selectedCheckoutDate.setText(endDateEng);
-					lblNewLabel_3.setText(dayBetween +" days");
+					lblNewLabel_3.setText(dayBetween + "");
 					closeAllPanel(true);
 					checkoutFirstPanel.setVisible(true);
 				}
@@ -860,6 +874,41 @@ public class UserInterface extends JFrame {
 		});
 	}
 
+	public void allPanels() {
+//			border bottom
+			borders();
+
+//			side info panel
+			roomInfo("romanticRetreat", "homePanel");
+
+//			modal
+			roomModal();
+
+//			home panel
+			homePanel();
+
+//			amenities panel
+			amenitiesPanel();
+
+//			rooms panel
+			roomsPanel();
+
+//			checkout panel
+			checkoutFirstStep();
+
+//			calendar panel
+			calendarPanel();
+
+//			side bar
+			sideBar();
+	}
+	
+	public void testPanel() {
+		borders();
+		roomInfo("romanticRetreat", "homePanel");
+		sideBar();
+	}
+	
 	public UserInterface() throws IOException {
 //		Resources.main(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -867,36 +916,156 @@ public class UserInterface extends JFrame {
 		getContentPane().setLayout(null);
 // 		set app icon 
 		setIconImage(logo.getImage());
+		setResizable(false);
 
-//		border bottom
-		borders();
+//		allPanels();
 
-//		side info panel
-		roomInfo("romanticRetreat", "homePanel");
-
-//		modal
-		roomModal();
-		
-//		home panel
-		homePanel();
-
-//		amenities panel
-		amenitiesPanel();
-
-//		rooms panel
-		roomsPanel();
-	
-//		checkout panel
-		checkoutFirstStep();
-	
-//		calendar panel
-		calendarPanel();
-	
-//		side bar
-		sideBar();
+		testPanel();
 		
 		closeAllPanel(true);
 		homePanel.setVisible(true);
+		
+		
+		
+		
+		
+		JPanel checkoutSecondPanel = new JPanel();
+		checkoutSecondPanel.setBounds(208, 0, 737, 625);
+		getContentPane().add(checkoutSecondPanel);
+		checkoutSecondPanel.setLayout(null);
+		
+		JPanel stepHeading = new JPanel();
+		stepHeading.setBackground(new Color(0, 163, 255));
+		stepHeading.setBounds(21, 43, 696, 38);
+		checkoutSecondPanel.add(stepHeading);
+		stepHeading.setLayout(null);
+		
+		JLabel heading = new JLabel("Step 2");
+		heading.setForeground(new Color(255, 255, 255));
+		heading.setFont(new Font("Helvetica", Font.BOLD, 15));
+		heading.setBounds(20, 6, 80, 26);
+		stepHeading.add(heading);
+		
 
+		JPanel panel = new JPanel();
+		panel.setBounds(109, 122, 220, 38);
+		panel.setBackground(Color.WHITE); // Set the background color of the panel
+		panel.setBorder(new RoundedBorder(10, 2));
+		panel.setLayout(null);
+
+		textField = new JTextField();
+		textField.setFont(new Font("Helvetica", Font.PLAIN, 18));
+		textField.setBounds(6, 6, 208, 26);
+		textField.setColumns(10);
+		textField.setOpaque(false);
+		textField.setBorder(null); // Set the border to null
+
+		panel.add(textField); // Add the text field to the panel
+		checkoutSecondPanel.add(panel);
+		
+		JLabel fullNameForm = new JLabel("Full Name");
+		fullNameForm.setFont(new Font("Helvetica", Font.BOLD, 16));
+		fullNameForm.setBounds(109, 94, 208, 28);
+		checkoutSecondPanel.add(fullNameForm);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBorder(new RoundedBorder(10, 2));
+		panel_1.setBackground(Color.WHITE);
+		panel_1.setBounds(109, 205, 220, 38);
+		checkoutSecondPanel.add(panel_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setOpaque(false);
+		textField_1.setFont(new Font("Helvetica", Font.PLAIN, 18));
+		textField_1.setColumns(10);
+		textField_1.setBorder(null);
+		textField_1.setBounds(6, 6, 208, 26);
+		panel_1.add(textField_1);
+		
+		JLabel fullNameForm_1 = new JLabel("Full Name");
+		fullNameForm_1.setFont(new Font("Helvetica", Font.BOLD, 16));
+		fullNameForm_1.setBounds(109, 177, 208, 28);
+		checkoutSecondPanel.add(fullNameForm_1);
+		
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setLayout(null);
+		panel_1_1.setBorder(new RoundedBorder(10, 2));
+		panel_1_1.setBackground(Color.WHITE);
+		panel_1_1.setBounds(109, 298, 220, 38);
+		checkoutSecondPanel.add(panel_1_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setOpaque(false);
+		textField_2.setFont(new Font("Helvetica", Font.PLAIN, 18));
+		textField_2.setColumns(10);
+		textField_2.setBorder(null);
+		textField_2.setBounds(6, 6, 208, 26);
+		panel_1_1.add(textField_2);
+		
+		JLabel fullNameForm_1_1 = new JLabel("Full Name");
+		fullNameForm_1_1.setFont(new Font("Helvetica", Font.BOLD, 16));
+		fullNameForm_1_1.setBounds(109, 270, 208, 28);
+		checkoutSecondPanel.add(fullNameForm_1_1);
+		
+		JPanel panel_1_1_1 = new JPanel();
+		panel_1_1_1.setLayout(null);
+		panel_1_1_1.setBorder(new RoundedBorder(10, 2));
+		panel_1_1_1.setBackground(Color.WHITE);
+		panel_1_1_1.setBounds(399, 122, 220, 38);
+		checkoutSecondPanel.add(panel_1_1_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setOpaque(false);
+		textField_3.setFont(new Font("Helvetica", Font.PLAIN, 18));
+		textField_3.setColumns(10);
+		textField_3.setBorder(null);
+		textField_3.setBounds(6, 6, 208, 26);
+		panel_1_1_1.add(textField_3);
+		
+		JLabel fullNameForm_1_1_1 = new JLabel("Full Name");
+		fullNameForm_1_1_1.setFont(new Font("Helvetica", Font.BOLD, 16));
+		fullNameForm_1_1_1.setBounds(399, 94, 208, 28);
+		checkoutSecondPanel.add(fullNameForm_1_1_1);
+		
+		JPanel panel_1_1_2 = new JPanel();
+		panel_1_1_2.setLayout(null);
+		panel_1_1_2.setBorder(new RoundedBorder(10, 2));
+		panel_1_1_2.setBackground(Color.WHITE);
+		panel_1_1_2.setBounds(399, 205, 220, 38);
+		checkoutSecondPanel.add(panel_1_1_2);
+		
+		textField_4 = new JTextField();
+		textField_4.setOpaque(false);
+		textField_4.setFont(new Font("Helvetica", Font.PLAIN, 18));
+		textField_4.setColumns(10);
+		textField_4.setBorder(null);
+		textField_4.setBounds(6, 6, 208, 26);
+		panel_1_1_2.add(textField_4);
+		
+		JLabel fullNameForm_1_1_2 = new JLabel("Full Name");
+		fullNameForm_1_1_2.setFont(new Font("Helvetica", Font.BOLD, 16));
+		fullNameForm_1_1_2.setBounds(399, 177, 208, 28);
+		checkoutSecondPanel.add(fullNameForm_1_1_2);
+		
+		JPanel panel_1_1_3 = new JPanel();
+		panel_1_1_3.setLayout(null);
+		panel_1_1_3.setBorder(new RoundedBorder(10, 2));
+		panel_1_1_3.setBackground(Color.WHITE);
+		panel_1_1_3.setBounds(399, 298, 220, 38);
+		checkoutSecondPanel.add(panel_1_1_3);
+		
+		textField_5 = new JTextField();
+		textField_5.setOpaque(false);
+		textField_5.setFont(new Font("Helvetica", Font.PLAIN, 18));
+		textField_5.setColumns(10);
+		textField_5.setBorder(null);
+		textField_5.setBounds(6, 6, 208, 26);
+		panel_1_1_3.add(textField_5);
+		
+		JLabel fullNameForm_1_1_3 = new JLabel("Full Name");
+		fullNameForm_1_1_3.setFont(new Font("Helvetica", Font.BOLD, 16));
+		fullNameForm_1_1_3.setBounds(399, 270, 208, 28);
+		checkoutSecondPanel.add(fullNameForm_1_1_3);
 	}
 }
