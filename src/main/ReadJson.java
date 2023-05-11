@@ -1,7 +1,6 @@
 package main;
 import java.io.FileReader;
 import java.io.IOException;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -10,12 +9,12 @@ import org.json.simple.parser.ParseException;
 public class ReadJson {
 //	global vars
 	static String roomFName, roomSPrice, roomIconImg, roomDesc, roomHeroIcon, roomOtherImageInfo, dummyheroIcon, feature1, feature2, feature3;
-	static long roomPrice;
-	
+	static long roomPrice, refNo;
+
     public static void fetchData(String roomData) {
         JSONParser jsonParser = new JSONParser();
 
-        try (FileReader reader = new FileReader("/Users/jaynardvillarisco/Documents/folders/test-json/data.json")) {
+        try (FileReader reader = new FileReader("/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/data.json")) {
             Object obj = jsonParser.parse(reader);
             JSONArray roomList = (JSONArray) obj;
 
@@ -40,6 +39,37 @@ public class ReadJson {
 					feature3 = (String) features.get(2);
                 }
             }
+
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void fetchRef() {
+
+        // Specify the path to your JSON file
+        String filePath = "/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/ref.json";
+
+        // Create a JSON parser
+        JSONParser jsonParser = new JSONParser();
+
+        try (FileReader reader = new FileReader(filePath)) {
+
+            // Parse the JSON data from the file
+            Object obj = jsonParser.parse(reader);
+
+            // Cast the parsed object to a JSON array
+            JSONArray jsonArray = (JSONArray) obj;
+
+            // Get the JSON object at the first (and only) index
+            JSONObject jsonObject = (JSONObject) jsonArray.get(0);
+
+            // Extract the value of the "ref" key as an integer
+            int ref = ((Long) jsonObject.get("ref")).intValue();
+
+            // Print the value of the "ref" key
+
+            refNo = ref;
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();

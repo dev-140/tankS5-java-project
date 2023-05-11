@@ -10,6 +10,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -85,6 +86,13 @@ public class UserInterface extends JFrame {
 	private JTextField textField_5;
 	RoundedButton checkoutConfirmBtn = new RoundedButton("Proceed");
 	JPanel checkoutSecondPanel = new JPanel();
+	JLabel checkinDateS3 = new JLabel("");
+	JLabel checkoutDateS3 = new JLabel("");
+	JLabel refNoS3 = new JLabel("");
+	JLabel totalAmountS3 = new JLabel("");
+	long totalAmount;
+	long dayBetween;
+	String cFName, cEmail, cAddress, cCardName, cCardNumber, cTelNo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -558,7 +566,7 @@ public class UserInterface extends JFrame {
 				startDateF = null;
 				endDateF = null;
 				isCheckin = false;
-				
+				isFirstComplete = false;
 			}
 		});
 
@@ -619,7 +627,7 @@ public class UserInterface extends JFrame {
 		roomModal.add(imageTwo);
 		imageTwo.setIcon(new ImageIcon(image1));
 
-		JLabel roomNumber = new JLabel("Room number: 1");
+		JLabel roomNumber = new JLabel("Room Details:");
 		roomNumber.setHorizontalAlignment(SwingConstants.LEFT);
 		roomNumber.setFont(new Font("Helvetica", Font.BOLD, 18));
 		roomNumber.setBounds(308, 77, 196, 37);
@@ -764,13 +772,22 @@ public class UserInterface extends JFrame {
 		});
 
 		primaryBtn(btnContinueC, 261, 375, 38, 120, checkoutFirstPanel);
-
 		btnContinueC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (isFirstComplete == true) {
 					closeAllPanel(true);
 					checkoutSecondPanel.setVisible(true);
 					animatePanel(0, 207, checkoutSecondPanel);
+					checkinDateS3.setText(startDateEng);
+					checkoutDateS3.setText(endDateEng);
+					ReadJson.fetchData(modalSetRoom);
+					totalAmount = ReadJson.roomPrice * dayBetween;
+					NumberFormat numberFormat = NumberFormat.getNumberInstance();
+					String formattedNumber = numberFormat.format(totalAmount);
+					totalAmountS3.setText("P " + formattedNumber);
+					WriteJson.addRef();
+					ReadJson.fetchRef();
+					refNoS3.setText(ReadJson.refNo + "");
 				}
 			}
 		});
@@ -868,7 +885,7 @@ public class UserInterface extends JFrame {
 		endDateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				dateConverter("endDate");
-				long dayBetween = ChronoUnit.DAYS.between(startDateF, endDateF);
+				dayBetween = ChronoUnit.DAYS.between(startDateF, endDateF);
 
 				if (dayBetween <= 0) {
 					dateText.setText("Please select again");
@@ -877,13 +894,25 @@ public class UserInterface extends JFrame {
 					lblNewLabel_3.setText(dayBetween + "");
 					closeAllPanel(true);
 					checkoutFirstPanel.setVisible(true);
+					totalDaysF = dayBetween;
 				}
 			}
 		});
 	}
 	
+	public void getClientDetails() {
+
+	}
+
 //	checkout last step
 	public void checkoutLastStep() {
+		formName = new JTextField();
+		formEmail = new JTextField();
+		formCardName = new JTextField();
+		formTelNo = new JTextField();
+		textField_4 = new JTextField();
+		textField_5 = new JTextField();
+		
 		checkoutSecondPanel.setBounds(208, 0, 737, 625);
 		getContentPane().add(checkoutSecondPanel);
 		checkoutSecondPanel.setLayout(null);
@@ -899,7 +928,6 @@ public class UserInterface extends JFrame {
 		heading.setFont(new Font("Helvetica", Font.BOLD, 15));
 		heading.setBounds(20, 6, 80, 26);
 		stepHeading.add(heading);
-		
 
 		JPanel panel = new JPanel();
 		panel.setBounds(109, 122, 220, 38);
@@ -907,7 +935,6 @@ public class UserInterface extends JFrame {
 		panel.setBorder(new RoundedBorder(10, 2));
 		panel.setLayout(null);
 
-		formName = new JTextField();
 		formName.setFont(new Font("Helvetica", Font.PLAIN, 18));
 		formName.setBounds(6, 6, 208, 26);
 		formName.setColumns(10);
@@ -929,7 +956,6 @@ public class UserInterface extends JFrame {
 		panel_1.setBounds(109, 205, 220, 38);
 		checkoutSecondPanel.add(panel_1);
 		
-		formEmail = new JTextField();
 		formEmail.setOpaque(false);
 		formEmail.setFont(new Font("Helvetica", Font.PLAIN, 18));
 		formEmail.setColumns(10);
@@ -949,7 +975,6 @@ public class UserInterface extends JFrame {
 		panel_1_1.setBounds(109, 292, 220, 38);
 		checkoutSecondPanel.add(panel_1_1);
 		
-		formCardName = new JTextField();
 		formCardName.setOpaque(false);
 		formCardName.setFont(new Font("Helvetica", Font.PLAIN, 18));
 		formCardName.setColumns(10);
@@ -968,8 +993,7 @@ public class UserInterface extends JFrame {
 		panel_1_1_1.setBackground(Color.WHITE);
 		panel_1_1_1.setBounds(399, 122, 220, 38);
 		checkoutSecondPanel.add(panel_1_1_1);
-		
-		formTelNo = new JTextField();
+
 		formTelNo.setOpaque(false);
 		formTelNo.setFont(new Font("Helvetica", Font.PLAIN, 18));
 		formTelNo.setColumns(10);
@@ -989,7 +1013,6 @@ public class UserInterface extends JFrame {
 		panel_1_1_2.setBounds(399, 205, 220, 38);
 		checkoutSecondPanel.add(panel_1_1_2);
 		
-		textField_4 = new JTextField();
 		textField_4.setOpaque(false);
 		textField_4.setFont(new Font("Helvetica", Font.PLAIN, 18));
 		textField_4.setColumns(10);
@@ -1008,8 +1031,7 @@ public class UserInterface extends JFrame {
 		panel_1_1_3.setBackground(Color.WHITE);
 		panel_1_1_3.setBounds(399, 292, 220, 38);
 		checkoutSecondPanel.add(panel_1_1_3);
-		
-		textField_5 = new JTextField();
+
 		textField_5.setOpaque(false);
 		textField_5.setFont(new Font("Helvetica", Font.PLAIN, 18));
 		textField_5.setColumns(10);
@@ -1056,31 +1078,40 @@ public class UserInterface extends JFrame {
 		lblTotalAmount.setBounds(447, 487, 132, 16);
 		checkoutSecondPanel.add(lblTotalAmount);
 		
-		JLabel checkinDateS3 = new JLabel("New label");
 		checkinDateS3.setFont(new Font("Helvetica", Font.PLAIN, 15));
 		checkinDateS3.setHorizontalAlignment(SwingConstants.CENTER);
 		checkinDateS3.setBounds(173, 436, 124, 16);
 		checkoutSecondPanel.add(checkinDateS3);
 		
-		JLabel checkoutDateS3_1 = new JLabel("New label");
-		checkoutDateS3_1.setHorizontalAlignment(SwingConstants.CENTER);
-		checkoutDateS3_1.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		checkoutDateS3_1.setBounds(451, 435, 124, 16);
-		checkoutSecondPanel.add(checkoutDateS3_1);
+		checkoutDateS3.setHorizontalAlignment(SwingConstants.CENTER);
+		checkoutDateS3.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		checkoutDateS3.setBounds(451, 435, 124, 16);
+		checkoutSecondPanel.add(checkoutDateS3);
 		
-		JLabel refNoS3 = new JLabel("New label");
 		refNoS3.setHorizontalAlignment(SwingConstants.CENTER);
 		refNoS3.setFont(new Font("Helvetica", Font.PLAIN, 15));
 		refNoS3.setBounds(173, 509, 124, 16);
 		checkoutSecondPanel.add(refNoS3);
 		
-		JLabel totalAmountS3 = new JLabel("New label");
 		totalAmountS3.setHorizontalAlignment(SwingConstants.CENTER);
 		totalAmountS3.setFont(new Font("Helvetica", Font.PLAIN, 15));
 		totalAmountS3.setBounds(455, 509, 124, 16);
 		checkoutSecondPanel.add(totalAmountS3);
 		
 		primaryBtn(checkoutConfirmBtn, 290, 560, 38, 160, checkoutSecondPanel);
+		checkoutConfirmBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				cFName = formName.getText();
+				cEmail = formEmail.getText();
+				cAddress =  textField_4.getText(); 
+				cCardName = formCardName.getText();
+				cCardNumber = textField_5.getText();
+				cTelNo = formTelNo.getText();
+				WriteJson.setData(modalSetRoom, cFName, cEmail, cAddress, cTelNo, cCardName, cCardNumber, totalDaysF, ReadJson.refNo, totalAmount);
+
+				closeAllPanel(false);
+			}
+		});
 	}
 
 //	all main methods
@@ -1117,7 +1148,7 @@ public class UserInterface extends JFrame {
 //	this function is for test and development only
 	public void testPanel() {
 		borders();
-		roomInfo("romanticRetreat", "homePanel");
+//		roomInfo("romanticRetreat", "homePanel");
 		sideBar();
 	}
 	
@@ -1132,7 +1163,7 @@ public class UserInterface extends JFrame {
 
 		allPanels();
 
-		// testPanel();
+//		testPanel();
 		
 		closeAllPanel(true);
 		homePanel.setVisible(true);
