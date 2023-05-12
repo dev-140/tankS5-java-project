@@ -65,8 +65,10 @@ public class UserInterface extends JFrame {
 	RoundedButton btnContinueC = new RoundedButton("Continue");
 	final JCalendar calendar = new JCalendar();
 	JLabel dateText = new JLabel();
-	LocalDate startDateF;
+	LocalDate startDateF = LocalDate.now();
 	LocalDate endDateF;
+	Date checkinDate;
+	Date checkinDateF, checkoutDateF;
 	RoundedButton startDateBtn = new RoundedButton("Confirm");
 	RoundedButton endDateBtn = new RoundedButton("Confirm");
 	JLabel checkinHeading = new JLabel("Check-in");
@@ -93,6 +95,11 @@ public class UserInterface extends JFrame {
 	long totalAmount;
 	long dayBetween;
 	String cFName, cEmail, cAddress, cCardName, cCardNumber, cTelNo;
+	private JTextField formRef;
+	RoundedButton findRef = new RoundedButton("Continue");
+
+// receipt variables
+	JPanel receiptPanel = new JPanel();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -117,7 +124,26 @@ public class UserInterface extends JFrame {
 		infoSidePanel.setVisible(showSideBar);
 		checkoutFirstPanel.setVisible(false);
 		checkoutSecondPanel.setVisible(false);
+		receiptPanel.setVisible(false);
 		isCheckout = false;
+	}
+
+//	reset checkout
+	public void resetCheckout() {
+		isCheckout = false;
+		formName.setText("");
+		formEmail.setText("");
+		textField_4.setText("");
+		formCardName.setText("");
+		textField_5.setText("");
+		formTelNo.setText("");
+		lblNewLabel_3.setText("0");
+		selectedCheckoutDate.setText("Select Date");
+		selectedCheckinDate.setText("Select Date");
+		startDateF = null;
+		endDateF = null;
+		isCheckin = false;
+		isFirstComplete = false;
 	}
 
 // 	primary btn
@@ -560,13 +586,7 @@ public class UserInterface extends JFrame {
 				closeAllPanel(true);
 				homePanel.setVisible(true);
 				setCheckOutBtn();
-				lblNewLabel_3.setText("0");
-				selectedCheckoutDate.setText("Select Date");
-				selectedCheckinDate.setText("Select Date");
-				startDateF = null;
-				endDateF = null;
-				isCheckin = false;
-				isFirstComplete = false;
+				resetCheckout();
 			}
 		});
 
@@ -751,6 +771,11 @@ public class UserInterface extends JFrame {
 				startDateBtn.setVisible(true);
 				checkinHeading.setText("Check-in");
 				calendarParam = "startDate";
+				checkinDate = checkinDateF;
+				isFirstComplete = false;
+				isCheckin = false;
+				System.out.println(calendarParam + " : " + checkinDate);
+				selectedCheckoutDate.setText("Select Date");
 			}
 		});
 
@@ -765,13 +790,16 @@ public class UserInterface extends JFrame {
 					checkinHeading.setText("Check-out");
 					calendarParam = "endDate";
 					isFirstComplete = true;
+					System.out.println(calendarParam);
+					checkinDate = checkoutDateF;
+					System.out.println(calendarParam + " : " + checkinDate);
 				} else {
 					selectedCheckoutDate.setText("Check-in First");
 				}
 			}
 		});
 
-		primaryBtn(btnContinueC, 261, 375, 38, 120, checkoutFirstPanel);
+		primaryBtn(btnContinueC, 255, 375, 38, 120, checkoutFirstPanel);
 		btnContinueC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (isFirstComplete == true) {
@@ -795,7 +823,7 @@ public class UserInterface extends JFrame {
 
 //	date converter method
 	public void dateConverter(String selectedDate) {
-		Date checkinDate = calendar.getDate();
+		checkinDate = calendar.getDate();
 		DateFormat dateFormat = new SimpleDateFormat("MMMM-dd-yyyy");
 		DateFormat dateFormatYF = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat outputDateFormat = new SimpleDateFormat("MMMM dd yyyy");
@@ -811,13 +839,12 @@ public class UserInterface extends JFrame {
 			if (selectedDate == "startDate") {
 				startDateF = conDate;
 				startDateEng = englishDate;
-				System.out.println("start");
+				checkinDateF = checkinDate;
 			} else if (selectedDate == "endDate") {
 				endDateF = conDate;
 				endDateEng = englishDate;
-				System.out.println("end");
+				checkoutDateF = checkinDate;
 			}
-
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -866,7 +893,6 @@ public class UserInterface extends JFrame {
 		startDateBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				dateConverter("startDate");
-				System.out.println("start date is: " + startDateF);
 				LocalDate today = LocalDate.now();
 				long daysBetween = ChronoUnit.DAYS.between(today, startDateF);
 
@@ -898,10 +924,6 @@ public class UserInterface extends JFrame {
 				}
 			}
 		});
-	}
-	
-	public void getClientDetails() {
-
 	}
 
 //	checkout last step
@@ -1108,43 +1130,189 @@ public class UserInterface extends JFrame {
 				cCardNumber = textField_5.getText();
 				cTelNo = formTelNo.getText();
 				WriteJson.setData(modalSetRoom, cFName, cEmail, cAddress, cTelNo, cCardName, cCardNumber, totalDaysF, ReadJson.refNo, totalAmount);
-
 				closeAllPanel(false);
+				receiptPanel.setVisible(true);
+				resetCheckout();
 			}
 		});
 	}
 
 //	all main methods
 	public void allPanels() {
-//			border bottom
-			borders();
+	//	border bottom
+		borders();
 
-//			side info panel
-			roomInfo("romanticRetreat", "homePanel");
+	//	side info panel
+		roomInfo("romanticRetreat", "homePanel");
 
-//			modal
-			roomModal();
+	//	modal
+		roomModal();
 
-//			home panel
-			homePanel();
+	//	home panel
+		homePanel();
 
-//			amenities panel
-			amenitiesPanel();
+	//	amenities panel
+		amenitiesPanel();
 
-//			rooms panel
-			roomsPanel();
+	//	rooms panel
+		roomsPanel();
 
-//			checkout panel
-			checkoutFirstStep();
-			checkoutLastStep();
+	//	checkout panel
+		checkoutFirstStep();
+		checkoutLastStep();
 
-//			calendar panel
-			calendarPanel();
+	//	calendar panel
+		calendarPanel();
 
-//			side bar
-			sideBar();
+	//	receipt
+		receipt();
+
+	//	side bar
+		sideBar();
 	}
-	
+
+// 	receipt
+	public void receipt() {
+		receiptPanel.setBounds(207, 0, 1005, 624);
+		getContentPane().add(receiptPanel);
+		receiptPanel.setLayout(null);
+
+		JLabel receiptHeading = new JLabel("Receipt");
+		receiptHeading.setFont(new Font("Lucida Grande", Font.BOLD, 24));
+		receiptHeading.setBounds(32, 50, 92, 25);
+		receiptPanel.add(receiptHeading);
+
+		JPanel headingBorder = new JPanel();
+		headingBorder.setBackground(new Color(0, 163, 255));
+		headingBorder.setBounds(30, 77, 43, 10);
+		receiptPanel.add(headingBorder);
+
+		JLabel formLabel = new JLabel("Enter Ref Number");
+		formLabel.setFont(new Font("Helvetica", Font.PLAIN, 17));
+		formLabel.setBounds(32, 133, 135, 16);
+		receiptPanel.add(formLabel);
+
+		JPanel panel_1_1 = new JPanel();
+		panel_1_1.setBorder(new RoundedBorder(10, 2));
+		panel_1_1.setBackground(Color.WHITE);
+		panel_1_1.setBounds(32, 161, 213, 37);
+		receiptPanel.add(panel_1_1);
+		panel_1_1.setLayout(null);
+		
+		formRef = new JTextField();
+		formRef.setBounds(6, 0, 201, 37);
+		panel_1_1.add(formRef);
+		formRef.setOpaque(false);
+		formRef.setFont(new Font("Helvetica", Font.PLAIN, 18));
+		formRef.setColumns(10);
+		formRef.setBorder(null);
+		
+		primaryBtn(findRef, 32, 211, 35, 213, receiptPanel);
+		
+		Color customColor = new Color(203,233,250);
+		JPanel clientDetailsPanel = new RoundedPanel(20, customColor);
+		clientDetailsPanel.setBounds(32, 312, 213, 116);
+		receiptPanel.add(clientDetailsPanel);
+		clientDetailsPanel.setLayout(null);
+		
+		JLabel detailsHeading = new JLabel("Details:");
+		detailsHeading.setFont(new Font("Helvetica", Font.BOLD, 14));
+		detailsHeading.setBounds(6, 6, 61, 16);
+		clientDetailsPanel.add(detailsHeading);
+		
+		JLabel dName = new JLabel("Rox Marzan");
+		dName.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		dName.setBounds(6, 29, 201, 16);
+		clientDetailsPanel.add(dName);
+		
+		JLabel dEmail = new JLabel("RoxMarzan@gmail.com");
+		dEmail.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		dEmail.setBounds(6, 55, 201, 16);
+		clientDetailsPanel.add(dEmail);
+		
+		JLabel dTelNo = new JLabel("09954630705");
+		dTelNo.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		dTelNo.setBounds(6, 83, 201, 16);
+		clientDetailsPanel.add(dTelNo);
+		
+		JLabel lblBillTo = new JLabel("Bill To:");
+		lblBillTo.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		lblBillTo.setBounds(34, 269, 92, 25);
+		receiptPanel.add(lblBillTo);
+		
+		JPanel headingBorder_1 = new JPanel();
+		headingBorder_1.setBackground(new Color(0, 163, 255));
+		headingBorder_1.setBounds(32, 296, 92, 5);
+		receiptPanel.add(headingBorder_1);
+		
+		RoundedPanel clientDetailsPanel_1 = new RoundedPanel(20, new Color(203, 233, 250));
+		clientDetailsPanel_1.setBounds(258, 312, 653, 116);
+		receiptPanel.add(clientDetailsPanel_1);
+		clientDetailsPanel_1.setLayout(null);
+		
+		JLabel rIcon = new JLabel("");
+		rIcon.setBounds(6, 6, 190, 104);
+		clientDetailsPanel_1.add(rIcon);
+
+		Image img = new ImageIcon(this.getClass().getResource("/room2.png")).getImage();
+		rIcon.setIcon(new ImageIcon(img));
+		
+		JLabel rHeading = new JLabel("Ref No.:");
+		rHeading.setFont(new Font("Helvetica", Font.BOLD, 14));
+		rHeading.setBounds(208, 14, 61, 16);
+		clientDetailsPanel_1.add(rHeading);
+		
+		JLabel rRefNo = new JLabel("1001");
+		rRefNo.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		rRefNo.setBounds(208, 35, 92, 16);
+		clientDetailsPanel_1.add(rRefNo);
+		
+		JLabel rCheckin = new JLabel("March 9, 2023 - March 10, 2023");
+		rCheckin.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		rCheckin.setBounds(208, 84, 231, 16);
+		clientDetailsPanel_1.add(rCheckin);
+		
+		JLabel rHeading_1 = new JLabel("Check-in:");
+		rHeading_1.setFont(new Font("Helvetica", Font.BOLD, 14));
+		rHeading_1.setBounds(208, 63, 81, 16);
+		clientDetailsPanel_1.add(rHeading_1);
+		
+		JLabel rHeading_2 = new JLabel("Receipt Date:");
+		rHeading_2.setFont(new Font("Helvetica", Font.BOLD, 14));
+		rHeading_2.setBounds(336, 14, 92, 16);
+		clientDetailsPanel_1.add(rHeading_2);
+		
+		JLabel rDate = new JLabel("February 30, 2023");
+		rDate.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		rDate.setBounds(336, 35, 141, 16);
+		clientDetailsPanel_1.add(rDate);
+		
+		JLabel rHeading_2_1 = new JLabel("Receipt Date:");
+		rHeading_2_1.setFont(new Font("Helvetica", Font.BOLD, 14));
+		rHeading_2_1.setBounds(507, 14, 92, 16);
+		clientDetailsPanel_1.add(rHeading_2_1);
+		
+		JLabel rTotPrice = new JLabel("₱ 25,000");
+		rTotPrice.setFont(new Font("Helvetica", Font.PLAIN, 14));
+		rTotPrice.setBounds(507, 34, 141, 16);
+		clientDetailsPanel_1.add(rTotPrice);
+		
+		JLabel rRoomName = new JLabel("Single room");
+		rRoomName.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		rRoomName.setBounds(258, 269, 686, 25);
+		receiptPanel.add(rRoomName);
+		
+		JPanel headingBorder_1_1 = new JPanel();
+		headingBorder_1_1.setBackground(new Color(0, 163, 255));
+		headingBorder_1_1.setBounds(258, 296, 92, 5);
+		receiptPanel.add(headingBorder_1_1);
+		
+		JLabel tyMessage = new JLabel("Thank you for your support");
+		tyMessage.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		tyMessage.setBounds(368, 460, 183, 16);
+		receiptPanel.add(tyMessage);
+	}
+
 //	this function is for test and development only
 	public void testPanel() {
 		borders();
@@ -1163,8 +1331,8 @@ public class UserInterface extends JFrame {
 
 		allPanels();
 
-//		testPanel();
-		
+// 		testPanel();
+
 		closeAllPanel(true);
 		homePanel.setVisible(true);
 	}
