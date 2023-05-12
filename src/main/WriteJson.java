@@ -10,7 +10,7 @@ public class WriteJson {
 	@SuppressWarnings("unchecked")
 	public static void setData(String roomData, String fName, String email, String address, String tel, String cName, String cNo, Long days, Long ref, Long total) {
 		// Set the path to the JSON file
-        String filePath = "/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/transaction-data.json";
+        String filePath = "C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\transaction-data.json";
         
 
         // Read the existing JSON data from the file
@@ -64,7 +64,7 @@ public class WriteJson {
 
         // Read in the JSON data from the file
         JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader("/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/ref.json")) {
+        try (FileReader reader = new FileReader("C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\ref.json")) {
             Object obj = parser.parse(reader);
             JSONArray jsonArray = (JSONArray) obj;
             JSONObject jsonObject = (JSONObject) jsonArray.get(0);
@@ -76,7 +76,7 @@ public class WriteJson {
             jsonObject.put("ref", ref + 1);
 
             // Write the modified data back out to the file
-            try (FileWriter writer = new FileWriter("/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/ref.json")) {
+            try (FileWriter writer = new FileWriter("C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\ref.json")) {
                 writer.write(jsonArray.toJSONString());
             }
 

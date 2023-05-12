@@ -14,7 +14,7 @@ public class ReadJson {
     public static void fetchData(String roomData) {
         JSONParser jsonParser = new JSONParser();
 
-        try (FileReader reader = new FileReader("/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/data.json")) {
+        try (FileReader reader = new FileReader("C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\data.json")) {
             Object obj = jsonParser.parse(reader);
             JSONArray roomList = (JSONArray) obj;
 
@@ -48,7 +48,7 @@ public class ReadJson {
     public static void fetchRef() {
 
         // Specify the path to your JSON file
-        String filePath = "/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/ref.json";
+        String filePath = "C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\ref.json";
 
         // Create a JSON parser
         JSONParser jsonParser = new JSONParser();
