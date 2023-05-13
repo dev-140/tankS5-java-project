@@ -27,7 +27,6 @@ public void paintBorder(Component c, Graphics g, int x, int y, int width, int he
     if (g instanceof Graphics2D) {
         g2d = (Graphics2D) g;
         g2d.setColor(color);
-        System.out.println(x + y);
         g2d.draw(new Line2D.Double((double)x, (double)y + 10, (double)x + 3, (double)y + 3));
         g2d.draw(new Line2D.Double((double)x + 3, (double)y + 3, (double)x + 10, (double)y));
         g2d.draw(new Line2D.Double((double)x + 10, (double)y, (double)x + 30, (double)y));

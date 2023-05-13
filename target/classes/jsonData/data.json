@@ -7,10 +7,14 @@
 		"desc": "A romantic room for newlyweds or couples, commonly referred to as a honeymoon suite, is designed to provide an intimate and luxurious environment for couples to celebrate their love and bond.",
 		"feature": ["Romantic Ambiance", "Spacious Comfort", "Private Balcony"],
 		"images": {
-			"smallImageIcon": "/single-small-image-icon.png",
+			"smallImageIcon": "/RomanticRetreat-101x57.png",
 			"heroIcon": "/single-hero-icon.png",
-			"otherImageInfo": "/single-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"otherImageInfo": "/feature_RomanticRetreat.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/RomanticRetreat-180x107.png",
+			"mainImage": "/RomanticRetreat-235x140.png"
 		}
 	},
 	{
@@ -25,10 +29,14 @@
 			"Exclusive Amenities"
 		],
 		"images": {
-			"smallImageIcon": "/double-small-image-icon.png",
+			"smallImageIcon": "/LuxuryHaven-101x57.png",
 			"heroIcon": "/double-hero-icon.png",
-			"otherImageInfo": "/double-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"otherImageInfo": "/feature_LuxuryHaven.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/LuxuryHaven-180x107.png",
+			"mainImage": "/LuxuryHaven-235x140.png"
 		}
 	},
 	{
@@ -39,10 +47,14 @@
 		"desc": "A lavish suite located on the top floor of a hotel is the ultimate in luxury and sophistication, offering unparalleled views of the surrounding area.",
 		"feature": ["Panoramic Views", "Lavish Living", "Private Terrace"],
 		"images": {
-			"smallImageIcon": "/triple-small-image-icon.png",
+			"smallImageIcon": "/Sky-HighViews-101x57.png",
 			"heroIcon": "/triple-hero-icon.png",
-			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"otherImageInfo": "/feature_Sky-HighViews.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/Sky-HighViews-180x107.png",
+			"mainImage": "/Sky-HighViews-235x140.png"
 		}
 	},
 	{
@@ -53,10 +65,14 @@
 		"desc": "A standalone bungalow located directly on the beach offers the ultimate in privacy and tranquility, providing guests with an idyllic and serene getaway.",
 		"feature": ["Ocean Views", "Private Beach Access", "Cozy Interior"],
 		"images": {
-			"smallImageIcon": "/triple-small-image-icon.png",
+			"smallImageIcon": "/BeachBungalow-101x57.png",
 			"heroIcon": "/triple-hero-icon.png",
-			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"otherImageInfo": "/feature_BeachBungalow.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/BeachBungalow-180x107.png",
+			"mainImage": "/BeachBungalow-235x140.png"
 		}
 	},
 	{
@@ -67,10 +83,14 @@
 		"desc": "A room with views of lush gardens is the perfect choice for those seeking a serene and natural ambiance during their stay.",
 		"feature": ["Lush Gardens", "Tranquil Ambiance", "Outdoor Seating"],
 		"images": {
-			"smallImageIcon": "/triple-small-image-icon.png",
+			"smallImageIcon": "/GardenOasis-101x57.png",
 			"heroIcon": "/triple-hero-icon.png",
-			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"otherImageInfo": "/feature_GardenOasis.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/GardenOasis-180x107.png",
+			"mainImage": "/GardenOasis-235x140.png"
 		}
 	},
 	{
@@ -81,10 +101,14 @@
 		"desc": "A room with a cozy fireplace, ideal for a warm and inviting atmosphere during colder seasons.",
 		"feature": ["Cozy Fireplace", "Warm Ambiance", "In-room Amenities"],
 		"images": {
-			"smallImageIcon": "/triple-small-image-icon.png",
+			"smallImageIcon": "/CozyFireplace-101x57.png",
 			"heroIcon": "/triple-hero-icon.png",
-			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"otherImageInfo": "/feature_CozyFireplace.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/CozyFireplace-180x107.png",
+			"mainImage": "/CozyFireplace-235x140.png"
 		}
 	}
 ]

@@ -19,8 +19,7 @@ public class RoundedButton extends JButton {
         g2.setColor(getBackground());
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
         g2.setColor(getForeground());
-        g2.drawString(getText(), getWidth() / 2 - g2.getFontMetrics().stringWidth(getText()) / 2,
-                getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
+        g2.drawString(getText(), getWidth() / 2 - g2.getFontMetrics().stringWidth(getText()) / 2, getHeight() / 2 + g2.getFontMetrics().getAscent() / 2);
         g2.dispose();
     }
 
@@ -28,8 +27,9 @@ public class RoundedButton extends JButton {
     protected void paintBorder(Graphics g) {
         Graphics2D g2 = (Graphics2D)g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setStroke(new BasicStroke(1)); // set the border thickness to 2 pixels
         g2.setColor(getForeground());
-        g2.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 20, 20);
+        g2.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 20, 20); // adjust the border position
         g2.dispose();
     }
 }

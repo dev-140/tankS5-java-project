@@ -8,7 +8,7 @@ import java.io.*;
 
 public class WriteJson {
 	@SuppressWarnings("unchecked")
-	public static void setData(String roomData, String fName, String email, String address, String tel, String cName, String cNo, Long days, Long ref, Long total) {
+	public static void setData(String roomData, String fName, String email, String address, String tel, String cName, String cNo, Long days, Long ref, Long total, String dateRange, String receiptDate) {
 		// Set the path to the JSON file
         String filePath = "C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\transaction-data.json";
         
@@ -28,6 +28,8 @@ public class WriteJson {
         newData.put("Days", days);
         newData.put("Ref", ref);
         newData.put("Total", total);
+        newData.put("RDate", receiptDate);
+        newData.put("dateRange", dateRange);
         finalData.add(newData);
 
         // Write the updated JSON data back to the file
