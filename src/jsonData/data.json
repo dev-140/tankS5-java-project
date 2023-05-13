@@ -1,0 +1,114 @@
+[
+	{
+		"room": "romanticRetreat",
+		"roomName": "Romantic Retreat",
+		"price": 8500,
+		"priceS": "P 8,500 - Night",
+		"desc": "A romantic room for newlyweds or couples, commonly referred to as a honeymoon suite, is designed to provide an intimate and luxurious environment for couples to celebrate their love and bond.",
+		"feature": ["Romantic Ambiance", "Spacious Comfort", "Private Balcony"],
+		"images": {
+			"smallImageIcon": "/RomanticRetreat-101x57.png",
+			"heroIcon": "/single-hero-icon.png",
+			"otherImageInfo": "/feature_RomanticRetreat.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/RomanticRetreat-180x107.png",
+			"mainImage": "/RomanticRetreat-235x140.png"
+		}
+	},
+	{
+		"room": "luxuryHaven",
+		"roomName": "Luxury Haven",
+		"price": 9800,
+		"priceS": "P 9,800 - Night",
+		"desc": "This type of suite is designed to provide an unparalleled level of luxury and sophistication for the most discerning of guests.",
+		"feature": [
+			"Luxurious Opulence",
+			"Generous Space",
+			"Exclusive Amenities"
+		],
+		"images": {
+			"smallImageIcon": "/LuxuryHaven-101x57.png",
+			"heroIcon": "/double-hero-icon.png",
+			"otherImageInfo": "/feature_LuxuryHaven.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/LuxuryHaven-180x107.png",
+			"mainImage": "/LuxuryHaven-235x140.png"
+		}
+	},
+	{
+		"room": "panoramicPenthouse",
+		"roomName": "Sky-High Views",
+		"price": 10000,
+		"priceS": "P 10,000 - Night",
+		"desc": "A lavish suite located on the top floor of a hotel is the ultimate in luxury and sophistication, offering unparalleled views of the surrounding area.",
+		"feature": ["Panoramic Views", "Lavish Living", "Private Terrace"],
+		"images": {
+			"smallImageIcon": "/Sky-HighViews-101x57.png",
+			"heroIcon": "/triple-hero-icon.png",
+			"otherImageInfo": "/feature_Sky-HighViews.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/Sky-HighViews-180x107.png",
+			"mainImage": "/Sky-HighViews-235x140.png"
+		}
+	},
+	{
+		"room": "beachBungalow",
+		"roomName": "Beach Bungalow",
+		"price": 7500,
+		"priceS": "P 7,500 - Night",
+		"desc": "A standalone bungalow located directly on the beach offers the ultimate in privacy and tranquility, providing guests with an idyllic and serene getaway.",
+		"feature": ["Ocean Views", "Private Beach Access", "Cozy Interior"],
+		"images": {
+			"smallImageIcon": "/BeachBungalow-101x57.png",
+			"heroIcon": "/triple-hero-icon.png",
+			"otherImageInfo": "/feature_BeachBungalow.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/BeachBungalow-180x107.png",
+			"mainImage": "/BeachBungalow-235x140.png"
+		}
+	},
+	{
+		"room": "gardenOasis",
+		"roomName": "Garden Oasis",
+		"price": 6200,
+		"priceS": "P 6,200 - Night",
+		"desc": "A room with views of lush gardens is the perfect choice for those seeking a serene and natural ambiance during their stay.",
+		"feature": ["Lush Gardens", "Tranquil Ambiance", "Outdoor Seating"],
+		"images": {
+			"smallImageIcon": "/GardenOasis-101x57.png",
+			"heroIcon": "/triple-hero-icon.png",
+			"otherImageInfo": "/feature_GardenOasis.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/GardenOasis-180x107.png",
+			"mainImage": "/GardenOasis-235x140.png"
+		}
+	},
+	{
+		"room": "fireplazeCozy",
+		"roomName": "Fireplace Cozy",
+		"price": 5700,
+		"priceS": "P 5,700 - Night",
+		"desc": "A room with a cozy fireplace, ideal for a warm and inviting atmosphere during colder seasons.",
+		"feature": ["Cozy Fireplace", "Warm Ambiance", "In-room Amenities"],
+		"images": {
+			"smallImageIcon": "/CozyFireplace-101x57.png",
+			"heroIcon": "/triple-hero-icon.png",
+			"otherImageInfo": "/feature_CozyFireplace.png",
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png",
+			"prodCardsIcon": "/CozyFireplace-180x107.png",
+			"mainImage": "/CozyFireplace-235x140.png"
+		}
+	}
+]
