@@ -96,5 +96,47 @@
 		"Card No.": "7777 8888 9999 0000",
 		"Full name": "Mike Brown",
 		"Tel No.": "555 9999"
+	},
+	{
+		"Ref": 1044,
+		"Email": "roxmarzan@gmail.com",
+		"RDate": "May 13, 2023",
+		"Address": "Cainta Rizal",
+		"dateRange": "May 13, 2023 - May 14, 2023",
+		"Card name": "Rox M.",
+		"Days": 1,
+		"Total": 8500,
+		"Room name": "romanticRetreat",
+		"Card No.": "411111111111",
+		"Full name": "Rox Marzan",
+		"Tel No.": "0912345678"
+	},
+	{
+		"Ref": 1045,
+		"Email": "rox@gmail.com",
+		"RDate": "May 13, 2023",
+		"Address": "cainta rizal",
+		"dateRange": "May 13, 2023 - May 14, 2023",
+		"Card name": "rox m",
+		"Days": 1,
+		"Total": 5700,
+		"Room name": "fireplazeCozy",
+		"Card No.": "411111111",
+		"Full name": "Rox Marzan",
+		"Tel No.": "9019128219"
+	},
+	{
+		"Ref": 1070,
+		"Email": "dis@gmail.com",
+		"RDate": "May 13, 2023",
+		"Address": "test only",
+		"dateRange": "May 13, 2023 - May 18, 2023",
+		"Card name": "disCountCard",
+		"Days": 5,
+		"Total": 38250,
+		"Room name": "romanticRetreat",
+		"Card No.": "411111111",
+		"Full name": "Discount Test",
+		"Tel No.": "9102928192"
 	}
 ]

@@ -26,17 +26,6 @@ public class ReadTest {
                     String cardNo = (String) jsonObject.get("Card No.");
                     String fullName = (String) jsonObject.get("Full name");
                     String telNo = (String) jsonObject.get("Tel No.");
-
-                    System.out.println("Ref: " + ref);
-                    System.out.println("Email: " + email);
-                    System.out.println("Address: " + address);
-                    System.out.println("Card name: " + cardName);
-                    System.out.println("Days: " + days);
-                    System.out.println("Total: " + total);
-                    System.out.println("Room name: " + roomName);
-                    System.out.println("Card No.: " + cardNo);
-                    System.out.println("Full name: " + fullName);
-                    System.out.println("Tel No.: " + telNo);
                 }
             }
         } catch (Exception e) {
