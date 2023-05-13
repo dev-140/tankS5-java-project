@@ -8,7 +8,9 @@ import org.json.simple.parser.ParseException;
 
 public class ReadJson {
 //	global vars
-	static String roomFName, roomSPrice, roomIconImg, roomDesc, roomHeroIcon, roomOtherImageInfo, dummyheroIcon, dummyProdCardsIcon, dummySmallCardsIcon, feature1, feature2, feature3, rDateRange, rdateBooked;
+	static String roomFName, roomSPrice, roomIconImg, roomDesc, roomHeroIcon, roomOtherImageInfo, dummyheroIcon, 
+    dummyProdCardsIcon, dummySmallCardsIcon, feature1, feature2, feature3, rDateRange, rdateBooked,
+    smallImageIcon, prodCardsIcon, mainImage;
 	static long roomPrice, refNo, rRefNos, rDays, rTotal;
     static String rEmail, rRoomName, rFullName, rTelNo;
 
@@ -36,6 +38,9 @@ public class ReadJson {
 					dummyheroIcon = (String) images.get("dummyheroIcon");
                     dummyProdCardsIcon = (String) images.get("dummyProdCardsIcon");
                     dummySmallCardsIcon = (String) images.get("dummySmallCardsIcon");
+                    smallImageIcon = (String) images.get("smallImageIcon");
+                    prodCardsIcon = (String) images.get("prodCardsIcon");
+                    mainImage = (String) images.get("mainImage");
 					roomDesc = (String) room.get("desc");
 					feature1 = (String) features.get(0);
 					feature2 = (String) features.get(1);
