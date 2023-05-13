@@ -79,13 +79,13 @@ public class UserInterface extends JFrame {
 	String calendarParam = "startDate", startDateEng = "Select Date", endDateEng = "Select Date";
 	long totalDaysF = 0;
 	JLabel lblNewLabel_3 = new JLabel(totalDaysF + " days");
-	boolean isCheckout = false, isCheckin = false, isFirstComplete = false;
+	boolean isCheckout = false, isCheckin = false, isFirstComplete = false, isCheckoutComplete = false;
 	private JTextField formName;
 	private JTextField formEmail;
 	private JTextField formCardName;
-	private JTextField formTelNo;
+	private JTextField formTelNo = new JTextField();
 	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField textField_5  = new JTextField();
 	RoundedButton checkoutConfirmBtn = new RoundedButton("Proceed");
 	JPanel checkoutSecondPanel = new JPanel();
 	JLabel checkinDateS3 = new JLabel("");
@@ -624,6 +624,7 @@ public class UserInterface extends JFrame {
 				homePanel.setVisible(true);
 				setCheckOutBtn();
 				resetCheckout();
+				checkoutConfirmBtn.setText("Proceed");
 			}
 		});
 
@@ -977,6 +978,17 @@ public class UserInterface extends JFrame {
 		rRoomName.setText(ReadJson.roomFName);
 	}
 
+// 	check form if empty
+	public void isFormComplete() {
+		if (formName.getText().trim().isEmpty() && formEmail.getText().trim().isEmpty() && formEmail.getText().trim().isEmpty() && formCardName.getText().trim().isEmpty() && formTelNo.getText().trim().isEmpty() && textField_4.getText().trim().isEmpty() && textField_5.getText().trim().isEmpty()) {
+			isCheckoutComplete = false;
+			checkoutConfirmBtn.setText("Complete the form");
+		} else {
+			isCheckoutComplete = true;
+			checkoutConfirmBtn.setText("Proceed");
+		}
+	}
+
 //	checkout last step
 	public void checkoutLastStep() {
 		formName = new JTextField();
@@ -1073,6 +1085,14 @@ public class UserInterface extends JFrame {
 		formTelNo.setBorder(null);
 		formTelNo.setBounds(6, 6, 208, 26);
 		panel_1_1_1.add(formTelNo);
+		formTelNo.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!Character.isDigit(c)) {
+					e.consume(); // Stop the event from propagating
+				}
+			}
+		});
 		
 		JLabel labelForm_3 = new JLabel("Phone Number");
 		labelForm_3.setFont(new Font("Helvetica", Font.BOLD, 16));
@@ -1111,6 +1131,14 @@ public class UserInterface extends JFrame {
 		textField_5.setBorder(null);
 		textField_5.setBounds(6, 6, 208, 26);
 		panel_1_1_3.add(textField_5);
+		textField_5.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!Character.isDigit(c)) {
+					e.consume(); // Stop the event from propagating
+				}
+			}
+		});
 		
 		JLabel formCardNo = new JLabel("Card Number");
 		formCardNo.setFont(new Font("Helvetica", Font.BOLD, 16));
@@ -1174,26 +1202,32 @@ public class UserInterface extends JFrame {
 		primaryBtn(checkoutConfirmBtn, 290, 560, 38, 160, checkoutSecondPanel);
 		checkoutConfirmBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				cFName = formName.getText();
-				cEmail = formEmail.getText();
-				cAddress =  textField_4.getText(); 
-				cCardName = formCardName.getText();
-				cCardNumber = textField_5.getText();
-				cTelNo = formTelNo.getText();
-				DateFormat outputDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
-				final Date startDate = Date.from(startDateF.atStartOfDay(ZoneOffset.UTC).toInstant());
-				final Date endDate = Date.from(endDateF.atStartOfDay(ZoneOffset.UTC).toInstant());
-				String englishDateStart = outputDateFormat.format(startDate);
-				String englishDateEnd = outputDateFormat.format(endDate);
-				String dateRange = englishDateStart + " - " + englishDateEnd;
-				Date currentDate = new Date();
-				String receiptDate = outputDateFormat.format(currentDate);
-				WriteJson.setData(modalSetRoom, cFName, cEmail, cAddress, cTelNo, cCardName, cCardNumber, totalDaysF, ReadJson.refNo, totalAmount, dateRange, receiptDate);
-				closeAllPanel(false);
-				receiptPanel.setVisible(true);
-				resetCheckout();
-				showRef((int) ReadJson.refNo);
-				formRef.setText(ReadJson.refNo + "");
+				isFormComplete();
+
+				if (isCheckoutComplete == true) {
+					cFName = formName.getText();
+					cEmail = formEmail.getText();
+					cAddress =  textField_4.getText(); 
+					cCardName = formCardName.getText();
+					cCardNumber = textField_5.getText();
+					cTelNo = formTelNo.getText();
+					DateFormat outputDateFormat = new SimpleDateFormat("MMMM dd, yyyy");
+					final Date startDate = Date.from(startDateF.atStartOfDay(ZoneOffset.UTC).toInstant());
+					final Date endDate = Date.from(endDateF.atStartOfDay(ZoneOffset.UTC).toInstant());
+					String englishDateStart = outputDateFormat.format(startDate);
+					String englishDateEnd = outputDateFormat.format(endDate);
+					String dateRange = englishDateStart + " - " + englishDateEnd;
+					Date currentDate = new Date();
+					String receiptDate = outputDateFormat.format(currentDate);
+					WriteJson.setData(modalSetRoom, cFName, cEmail, cAddress, cTelNo, cCardName, cCardNumber, totalDaysF, ReadJson.refNo, totalAmount, dateRange, receiptDate);
+					closeAllPanel(false);
+					receiptPanel.setVisible(true);
+					resetCheckout();
+					showRef((int) ReadJson.refNo);
+					formRef.setText(ReadJson.refNo + "");
+				} else {
+
+				}
 			}
 		});
 	}
