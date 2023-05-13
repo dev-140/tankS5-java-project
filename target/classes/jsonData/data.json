@@ -10,7 +10,9 @@
 			"smallImageIcon": "/single-small-image-icon.png",
 			"heroIcon": "/single-hero-icon.png",
 			"otherImageInfo": "/single-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png"
 		}
 	},
 	{
@@ -28,7 +30,9 @@
 			"smallImageIcon": "/double-small-image-icon.png",
 			"heroIcon": "/double-hero-icon.png",
 			"otherImageInfo": "/double-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png"
 		}
 	},
 	{
@@ -42,7 +46,9 @@
 			"smallImageIcon": "/triple-small-image-icon.png",
 			"heroIcon": "/triple-hero-icon.png",
 			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png"
 		}
 	},
 	{
@@ -56,7 +62,9 @@
 			"smallImageIcon": "/triple-small-image-icon.png",
 			"heroIcon": "/triple-hero-icon.png",
 			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png"
 		}
 	},
 	{
@@ -70,7 +78,9 @@
 			"smallImageIcon": "/triple-small-image-icon.png",
 			"heroIcon": "/triple-hero-icon.png",
 			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png"
 		}
 	},
 	{
@@ -84,7 +94,9 @@
 			"smallImageIcon": "/triple-small-image-icon.png",
 			"heroIcon": "/triple-hero-icon.png",
 			"otherImageInfo": "/triple-info-more-image.png",
-			"dummyheroIcon": "/sample-image-room-info.png"
+			"dummyheroIcon": "/sample-image-room-info.png",
+			"dummyProdCardsIcon": "/room2.png",
+			"dummySmallCardsIcon": "/availabel-room-test-img.png"
 		}
 	}
 ]
