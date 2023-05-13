@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.text.*;
+
+import com.toedter.calendar.JCalendar;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
