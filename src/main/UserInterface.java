@@ -47,6 +47,7 @@ public class UserInterface extends JFrame {
 	RoundedButton bookBtn = new RoundedButton("Book now");
 	RoundedButton showMoreBtn = new RoundedButton("Show More");
 	RoundedButton cancelCheckoutBtn = new RoundedButton("Cancel");
+	private final JLabel availableRoomTxt = new JLabel("Available Room:");
 	
 	// room modal variables
 	String modalSetRoom = "romanticRetreat";
@@ -99,7 +100,6 @@ public class UserInterface extends JFrame {
 	RoundedButton checkoutDateBtn = new RoundedButton("Choose date");
 	RoundedButton btnContinueC = new RoundedButton("Continue");
 	boolean isCheckout = false, isCheckin = false, isFirstComplete = false, isCheckoutComplete = false;
-	
 
 // receipt variables
 	JPanel receiptPanel = new JPanel();
@@ -590,20 +590,20 @@ public class UserInterface extends JFrame {
 		JLabel roomInfoHeading = new JLabel("Room Info");
 		roomInfoHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		roomInfoHeading.setFont(new Font("Helvetica", Font.BOLD, 20));
-		roomInfoHeading.setBounds(6, 18, 256, 28);
+		roomInfoHeading.setBounds(6, 6, 256, 28);
 		infoSidePanel.add(roomInfoHeading);
 
 		roomInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		roomInfoLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
-		roomInfoLabel.setBounds(6, 66, 256, 28);
+		roomInfoLabel.setBounds(6, 54, 256, 28);
 		infoSidePanel.add(roomInfoLabel);
 
 		JPanel headingBorder = new JPanel();
 		headingBorder.setBackground(new Color(0, 163, 255));
-		headingBorder.setBounds(46, 47, 170, 10);
+		headingBorder.setBounds(46, 35, 170, 10);
 		infoSidePanel.add(headingBorder);
 
-		roomInfoImage.setBounds(16, 106, 235, 140);
+		roomInfoImage.setBounds(16, 94, 235, 140);
 		infoSidePanel.add(roomInfoImage);
 		Image roomSideInfoImage = new ImageIcon(this.getClass().getResource(ReadJson.mainImage)).getImage();
 		roomInfoImage.setIcon(new ImageIcon(roomSideInfoImage));
@@ -611,7 +611,7 @@ public class UserInterface extends JFrame {
 		Color custom = Color.decode("#00A3FF");
 		JPanel roomInfoPriceBg = new RoundedPanel(20, custom);
 		roomInfoPriceBg.setBackground(new Color(255, 255, 255));
-		roomInfoPriceBg.setBounds(46, 260, 181, 36);
+		roomInfoPriceBg.setBounds(46, 248, 181, 36);
 		infoSidePanel.add(roomInfoPriceBg);
 		roomInfoPriceBg.setLayout(null);
 
@@ -624,7 +624,7 @@ public class UserInterface extends JFrame {
 		txtRoomName.setForeground(new Color(126, 126, 126));
 		txtRoomName.setEditable(false);
 		txtRoomName.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		txtRoomName.setBounds(16, 310, 235, 110);
+		txtRoomName.setBounds(16, 322, 235, 110);
 		infoSidePanel.add(txtRoomName);
 		StyledDocument doc = txtRoomName.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
@@ -664,6 +664,11 @@ public class UserInterface extends JFrame {
 		});
 
 		primaryBtn(bookBtn, 46, 498, 38, 181, infoSidePanel);
+		availableRoomTxt.setFont(new Font("Helvetica", Font.BOLD, 15));
+		availableRoomTxt.setHorizontalAlignment(SwingConstants.CENTER);
+		availableRoomTxt.setBounds(46, 296, 181, 16);
+		
+		infoSidePanel.add(availableRoomTxt);
 		bookBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				closeAllPanel(true);
@@ -1482,9 +1487,9 @@ public class UserInterface extends JFrame {
 // 		set app icon 
 		setResizable(false);
 
-		allPanels();
+		// allPanels();
 
-		// testPanel();
+		testPanel();
 
 		closeAllPanel(true);
 		homePanel.setVisible(true);
