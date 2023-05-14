@@ -91,6 +91,8 @@ public class ReadJson {
         String filePath = "/Users/jaynardvillarisco/eclipse-workspace/tankS5/src/jsonData/transaction-data.json";
         JSONParser parser = new JSONParser();
 
+        boolean found = false;
+
         try {
             JSONArray jsonArray = (JSONArray) parser.parse(new FileReader(filePath));
 
@@ -98,6 +100,7 @@ public class ReadJson {
                 JSONObject jsonObject = (JSONObject) obj;
                 Long ref = (Long) jsonObject.get("Ref"); // Use Long instead of String
                 if (ref.equals(Long.valueOf(i))) { // Convert int to Long and use equals method for comparison
+                	UserInterface.isRemove = true;
                     String email = (String) jsonObject.get("Email");
                     // String address = (String) jsonObject.get("Address");
                     // String cardName = (String) jsonObject.get("Card name");
@@ -121,8 +124,18 @@ public class ReadJson {
                     rDateRange = dateRange;
                     rdateBooked = dateBooked;
                     rRoomNo = roomNo;
+
+                    found = true;
+                    break;
                 }
             }
+
+            if (!found) {
+            	UserInterface.isRemove = false;
+                UserInterface.resetReceipt();
+                throw new Exception("No matching Ref found. sss");
+            }
+
         } catch (ClassCastException e) {
             System.out.println("Error: Invalid data type in JSON.");
         } catch (Exception e) {
