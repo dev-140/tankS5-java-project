@@ -10,8 +10,8 @@ public class ReadJson {
 //	global vars
 	static String roomFName, roomSPrice, roomIconImg, roomDesc, roomHeroIcon, roomOtherImageInfo, dummyheroIcon, 
     dummyProdCardsIcon, dummySmallCardsIcon, feature1, feature2, feature3, rDateRange, rdateBooked,
-    smallImageIcon, prodCardsIcon, mainImage;
-	static long roomPrice, refNo, rRefNos, rDays, rTotal;
+    smallImageIcon, prodCardsIcon, mainImage, roomType, roomId, rRoomNo;
+	static long roomPrice, refNo, rRefNos, rDays, rTotal, availableRoom;
     static String rEmail, rRoomName, rFullName, rTelNo;
 
     public static void fetchData(String roomData) {
@@ -45,6 +45,9 @@ public class ReadJson {
 					feature1 = (String) features.get(0);
 					feature2 = (String) features.get(1);
 					feature3 = (String) features.get(2);
+                    availableRoom = (long) room.get("availableRoom");
+                    roomType = (String) room.get("roomType");
+                    roomId = (String) room.get("room");
                 }
             }
 
@@ -106,6 +109,7 @@ public class ReadJson {
                     String telNo = (String) jsonObject.get("Tel No.");
                     String dateRange = (String) jsonObject.get("dateRange");
                     String dateBooked = (String) jsonObject.get("RDate");
+                    String roomNo = (String) jsonObject.get("RoomNo");
 
                     rRefNos = ref;
                     rDays = days;
@@ -116,6 +120,7 @@ public class ReadJson {
                     rTelNo = telNo;
                     rDateRange = dateRange;
                     rdateBooked = dateBooked;
+                    rRoomNo = roomNo;
                 }
             }
         } catch (ClassCastException e) {
@@ -123,9 +128,5 @@ public class ReadJson {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-    }
-
-    public static void main(String[] args) {
-        fetchRefData(1023);
     }
 }

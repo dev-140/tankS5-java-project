@@ -20,8 +20,6 @@ import java.util.Date;
 import com.toedter.calendar.JCalendar;
 import java.time.temporal.ChronoUnit;
 public class UserInterface extends JFrame {
-
-	// change default app icon
 	private static final long serialVersionUID = 1L;
 	JPanel sideBarPanel = new JPanel();
 	JPanel homePanel = new JPanel();
@@ -47,6 +45,7 @@ public class UserInterface extends JFrame {
 	RoundedButton bookBtn = new RoundedButton("Book now");
 	RoundedButton showMoreBtn = new RoundedButton("Show More");
 	RoundedButton cancelCheckoutBtn = new RoundedButton("Cancel");
+	private final JLabel availableRoomTxt = new JLabel("");
 	
 	// room modal variables
 	String modalSetRoom = "romanticRetreat";
@@ -99,7 +98,6 @@ public class UserInterface extends JFrame {
 	RoundedButton checkoutDateBtn = new RoundedButton("Choose date");
 	RoundedButton btnContinueC = new RoundedButton("Continue");
 	boolean isCheckout = false, isCheckin = false, isFirstComplete = false, isCheckoutComplete = false;
-	
 
 // receipt variables
 	JPanel receiptPanel = new JPanel();
@@ -112,6 +110,10 @@ public class UserInterface extends JFrame {
 	JLabel rTotPrice = new JLabel("----");
 	JLabel rRoomName = new JLabel("Room Name");
 	JLabel rIcon = new JLabel("");
+	JLabel lblRoomNoVal = new JLabel("--");
+	RoundedButton removeRef = new RoundedButton("Check-out");
+	int currRef;
+	String storeRoomNo, storeRoomName;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -156,6 +158,19 @@ public class UserInterface extends JFrame {
 		endDateF = null;
 		isCheckin = false;
 		isFirstComplete = false;
+	}
+
+//	reset receipt
+	public void resetReceipt() {
+		dName.setText("----");
+		dEmail.setText("----");
+		dTelNo.setText("----");
+		rRefNo.setText("----");
+		rCheckin.setText("----");
+		rDate.setText("----");
+		rTotPrice.setText("----");
+		lblRoomNoVal.setText("----");
+		rRoomName.setText("Room Name");
 	}
 
 // 	primary btn
@@ -235,6 +250,7 @@ public class UserInterface extends JFrame {
 				animatePanel(0, 207, homePanel);
 				isCheckout = false;
 				setCheckOutBtn();
+				hideBookBtn(modalSetRoom);
 			}
 		});
 
@@ -246,6 +262,7 @@ public class UserInterface extends JFrame {
 				animatePanel(0, 208, roomsPanel);
 				isCheckout = false;
 				setCheckOutBtn();
+				hideBookBtn(modalSetRoom);
 			}
 		});
 
@@ -257,6 +274,7 @@ public class UserInterface extends JFrame {
 				animatePanel(0, 218, amenitiesPanel);
 				isCheckout = false;
 				setCheckOutBtn();
+				hideBookBtn(modalSetRoom);
 			}
 		});
 
@@ -267,6 +285,7 @@ public class UserInterface extends JFrame {
 				receiptPanel.setVisible(true);
 				isCheckout = false;
 				setCheckOutBtn();
+				hideBookBtn(modalSetRoom);
 			}
 		});
 	}
@@ -285,6 +304,17 @@ public class UserInterface extends JFrame {
 		footerCopyRight.setHorizontalAlignment(SwingConstants.CENTER);
 		footerCopyRight.setBounds(6, 5, 1200, 16);
 		bottomBorder.add(footerCopyRight);
+	}
+
+// 	hide book btn
+	public void hideBookBtn(String roomName) {
+		ReadJson.fetchData(roomName);
+
+		if (ReadJson.availableRoom == 0) {
+			bookBtn.setVisible(false);
+		} else {
+			bookBtn.setVisible(true);
+		}
 	}
 
 //	product cards
@@ -325,6 +355,8 @@ public class UserInterface extends JFrame {
 				txtRoomName.setText(ReadJson.roomDesc);
 				Image roomSideInfoImage = new ImageIcon(this.getClass().getResource(ReadJson.mainImage)).getImage();
 				roomInfoImage.setIcon(new ImageIcon(roomSideInfoImage));
+				availableRoomTxt.setText("Available Rooms: " + ReadJson.availableRoom);
+				hideBookBtn(roomDetails);
 			}
 		});
 	}
@@ -533,6 +565,8 @@ public class UserInterface extends JFrame {
 				txtRoomName.setText(ReadJson.roomDesc);
 				Image roomSideInfoImage = new ImageIcon(this.getClass().getResource(ReadJson.mainImage)).getImage();
 				roomInfoImage.setIcon(new ImageIcon(roomSideInfoImage));
+				availableRoomTxt.setText("Available Rooms: " + ReadJson.availableRoom);
+				hideBookBtn(roomName);
 			}
 		});
 	}
@@ -590,20 +624,20 @@ public class UserInterface extends JFrame {
 		JLabel roomInfoHeading = new JLabel("Room Info");
 		roomInfoHeading.setHorizontalAlignment(SwingConstants.CENTER);
 		roomInfoHeading.setFont(new Font("Helvetica", Font.BOLD, 20));
-		roomInfoHeading.setBounds(6, 18, 256, 28);
+		roomInfoHeading.setBounds(6, 6, 256, 28);
 		infoSidePanel.add(roomInfoHeading);
 
 		roomInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		roomInfoLabel.setFont(new Font("Helvetica", Font.BOLD, 20));
-		roomInfoLabel.setBounds(6, 66, 256, 28);
+		roomInfoLabel.setBounds(6, 54, 256, 28);
 		infoSidePanel.add(roomInfoLabel);
 
 		JPanel headingBorder = new JPanel();
 		headingBorder.setBackground(new Color(0, 163, 255));
-		headingBorder.setBounds(46, 47, 170, 10);
+		headingBorder.setBounds(46, 35, 170, 10);
 		infoSidePanel.add(headingBorder);
 
-		roomInfoImage.setBounds(16, 106, 235, 140);
+		roomInfoImage.setBounds(16, 94, 235, 140);
 		infoSidePanel.add(roomInfoImage);
 		Image roomSideInfoImage = new ImageIcon(this.getClass().getResource(ReadJson.mainImage)).getImage();
 		roomInfoImage.setIcon(new ImageIcon(roomSideInfoImage));
@@ -611,7 +645,7 @@ public class UserInterface extends JFrame {
 		Color custom = Color.decode("#00A3FF");
 		JPanel roomInfoPriceBg = new RoundedPanel(20, custom);
 		roomInfoPriceBg.setBackground(new Color(255, 255, 255));
-		roomInfoPriceBg.setBounds(46, 260, 181, 36);
+		roomInfoPriceBg.setBounds(46, 248, 181, 36);
 		infoSidePanel.add(roomInfoPriceBg);
 		roomInfoPriceBg.setLayout(null);
 
@@ -624,7 +658,7 @@ public class UserInterface extends JFrame {
 		txtRoomName.setForeground(new Color(126, 126, 126));
 		txtRoomName.setEditable(false);
 		txtRoomName.setFont(new Font("Helvetica", Font.PLAIN, 15));
-		txtRoomName.setBounds(16, 310, 235, 110);
+		txtRoomName.setBounds(16, 322, 235, 110);
 		infoSidePanel.add(txtRoomName);
 		StyledDocument doc = txtRoomName.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
@@ -664,6 +698,19 @@ public class UserInterface extends JFrame {
 		});
 
 		primaryBtn(bookBtn, 46, 498, 38, 181, infoSidePanel);
+
+		availableRoomTxt.setText("Available Rooms: " + ReadJson.availableRoom);
+		availableRoomTxt.setFont(new Font("Helvetica", Font.BOLD, 15));
+		availableRoomTxt.setHorizontalAlignment(SwingConstants.CENTER);
+		availableRoomTxt.setBounds(46, 296, 181, 16);
+
+		if (ReadJson.availableRoom == 0) {
+			bookBtn.setVisible(false);
+		} else {
+			bookBtn.setVisible(true);
+		}
+
+		infoSidePanel.add(availableRoomTxt);
 		bookBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				closeAllPanel(true);
@@ -883,6 +930,8 @@ public class UserInterface extends JFrame {
 					ReadJson.fetchRef();
 					refNoS3.setText(ReadJson.refNo + "");
 					totalDaysS3.setText(dayBetween + "");
+					storeRoomNo = ReadJson.roomType + ReadJson.availableRoom;
+					System.out.println(storeRoomNo);
 
 					if (dayBetween >= 5) {
 						discountS3.setText("10%");
@@ -1008,6 +1057,7 @@ public class UserInterface extends JFrame {
 //	get ref code details
 	public void showRef(int getRef) {
 		ReadJson.fetchRefData(getRef);
+		storeRoomName = ReadJson.roomId;
 		dName.setText(ReadJson.rFullName);
 		dEmail.setText(ReadJson.rEmail);
 		dTelNo.setText(ReadJson.rTelNo);
@@ -1019,6 +1069,7 @@ public class UserInterface extends JFrame {
 		rRoomName.setText(ReadJson.roomFName);
 		Image img = new ImageIcon(this.getClass().getResource(ReadJson.prodCardsIcon)).getImage();
 		rIcon.setIcon(new ImageIcon(img));
+		lblRoomNoVal.setText(ReadJson.rRoomNo);
 	}
 
 // 	check form if empty
@@ -1282,13 +1333,15 @@ public class UserInterface extends JFrame {
 					String dateRange = englishDateStart + " - " + englishDateEnd;
 					Date currentDate = new Date();
 					String receiptDate = outputDateFormat.format(currentDate);
-					WriteJson.setData(modalSetRoom, cFName, cEmail, cAddress, cTelNo, cCardName, cCardNumber, totalDaysF, ReadJson.refNo, totalAmount, dateRange, receiptDate);
+					WriteJson.setData(modalSetRoom, cFName, cEmail, cAddress, cTelNo, cCardName, cCardNumber, totalDaysF, ReadJson.refNo, totalAmount, dateRange, receiptDate, storeRoomNo);
 					closeAllPanel(false);
 					receiptPanel.setVisible(true);
 					resetCheckout();
 					showRef((int) ReadJson.refNo);
 					formRef.setText(ReadJson.refNo + "");
-				} else {
+					WriteJson.updateAvailableRoomCount(modalSetRoom);
+					ReadJson.fetchData(modalSetRoom);
+					availableRoomTxt.setText("Available Rooms: " + ReadJson.availableRoom);
 
 				}
 			}
@@ -1335,6 +1388,7 @@ public class UserInterface extends JFrame {
 		findRef.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				showRef(Integer.parseInt(formRef.getText()));
+				currRef = Integer.parseInt(formRef.getText());
 			}
 		});
 
@@ -1372,15 +1426,12 @@ public class UserInterface extends JFrame {
 		receiptPanel.add(headingBorder_1);
 		
 		RoundedPanel clientDetailsPanel_1 = new RoundedPanel(20, new Color(203, 233, 250));
-		clientDetailsPanel_1.setBounds(258, 312, 653, 116);
+		clientDetailsPanel_1.setBounds(258, 312, 712, 116);
 		receiptPanel.add(clientDetailsPanel_1);
 		clientDetailsPanel_1.setLayout(null);
 		
 		rIcon.setBounds(6, 6, 190, 104);
 		clientDetailsPanel_1.add(rIcon);
-
-		// Image img = new ImageIcon(this.getClass().getResource("/room2.png")).getImage();
-		// rIcon.setIcon(new ImageIcon(img));
 		
 		JLabel rHeading = new JLabel("Ref No.:");
 		rHeading.setFont(new Font("Helvetica", Font.BOLD, 14));
@@ -1418,8 +1469,18 @@ public class UserInterface extends JFrame {
 		rTotPrice.setBounds(507, 34, 141, 16);
 		clientDetailsPanel_1.add(rTotPrice);
 		
+		primaryBtn(removeRef, 507, 78, 29, 117, clientDetailsPanel_1);
+		// .setBounds( 117, 29);
+		removeRef.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				WriteJson.deleteRefData(currRef);
+				WriteJson.updateAvailableRoomCountAdd(storeRoomName);
+				resetReceipt();
+			}
+		});
+		
 		rRoomName.setFont(new Font("Lucida Grande", Font.BOLD, 20));
-		rRoomName.setBounds(258, 269, 686, 25);
+		rRoomName.setBounds(258, 269, 488, 25);
 		receiptPanel.add(rRoomName);
 		
 		JPanel headingBorder_1_1 = new JPanel();
@@ -1431,6 +1492,20 @@ public class UserInterface extends JFrame {
 		tyMessage.setFont(new Font("Helvetica", Font.PLAIN, 15));
 		tyMessage.setBounds(368, 460, 183, 16);
 		receiptPanel.add(tyMessage);
+		
+		JLabel lblRoomNo = new JLabel("Room No:");
+		lblRoomNo.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		lblRoomNo.setBounds(769, 269, 106, 25);
+		receiptPanel.add(lblRoomNo);
+		
+		JPanel headingBorder_1_2 = new JPanel();
+		headingBorder_1_2.setBackground(new Color(0, 163, 255));
+		headingBorder_1_2.setBounds(767, 296, 92, 5);
+		receiptPanel.add(headingBorder_1_2);
+
+		lblRoomNoVal.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		lblRoomNoVal.setBounds(876, 269, 69, 25);
+		receiptPanel.add(lblRoomNoVal);
 	}
 
 //	all main methods
@@ -1488,5 +1563,6 @@ public class UserInterface extends JFrame {
 
 		closeAllPanel(true);
 		homePanel.setVisible(true);
+		// receipt();
 	}
 }
