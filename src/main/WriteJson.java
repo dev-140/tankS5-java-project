@@ -8,7 +8,8 @@ import java.io.*;
 
 public class WriteJson {
 	@SuppressWarnings("unchecked")
-	public static void setData(String roomData, String fName, String email, String address, String tel, String cName, String cNo, Long days, Long ref, Long total, String dateRange, String receiptDate) {
+    // write transaction data
+	public static void setData(String roomData, String fName, String email, String address, String tel, String cName, String cNo, Long days, Long ref, Long total, String dateRange, String receiptDate, String roomNo) {
 		// Set the path to the JSON file
         String filePath = "C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\transaction-data.json";
         
@@ -30,6 +31,7 @@ public class WriteJson {
         newData.put("Total", total);
         newData.put("RDate", receiptDate);
         newData.put("dateRange", dateRange);
+        newData.put("RoomNo", roomNo);
         finalData.add(newData);
 
         // Write the updated JSON data back to the file
@@ -62,8 +64,8 @@ public class WriteJson {
         }
 	}
 
+    // update ref json
     public static void addRef() {
-
         // Read in the JSON data from the file
         JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader("C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\ref.json")) {
@@ -85,5 +87,119 @@ public class WriteJson {
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    // update available room
+    public static void updateAvailableRoomCount(String roomName) {
+        String filePath = "C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\data.json";
+        int roomsToDecrement = 1;
+        
+        JSONParser parser = new JSONParser();
+        
+        try (FileReader reader = new FileReader(filePath)) {
+            // Parse the JSON file into a JSONArray
+            JSONArray roomData = (JSONArray) parser.parse(reader);
+            
+            // Find the room with the matching roomName
+            for (Object roomObj : roomData) {
+                JSONObject room = (JSONObject) roomObj;
+                String currRoomName = (String) room.get("room");
+                
+                if (roomName.equals(currRoomName)) {
+                    // Update the availableRoom value
+                    int currAvailableRooms = ((Number) room.get("availableRoom")).intValue();
+                    int newAvailableRooms = currAvailableRooms - roomsToDecrement;
+                    room.put("availableRoom", newAvailableRooms);
+                    
+                    // Write the updated JSON data back to the file
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        writer.write(roomData.toJSONString());
+                        System.out.println("Successfully updated availableRoom for " + roomName + ".");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    
+                    return;
+                }
+            }
+            
+            // If no matching room was found, print an error message
+            System.out.println("Could not find room with name: " + roomName);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void updateAvailableRoomCountAdd(String roomName) {
+        String filePath = "C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\data.json";
+        
+        JSONParser parser = new JSONParser();
+        
+        try (FileReader reader = new FileReader(filePath)) {
+            // Parse the JSON file into a JSONArray
+            JSONArray roomData = (JSONArray) parser.parse(reader);
+            
+            // Find the room with the matching roomName
+            for (Object roomObj : roomData) {
+                JSONObject room = (JSONObject) roomObj;
+                String currRoomName = (String) room.get("room");
+                
+                if (roomName.equals(currRoomName)) {
+                    // Update the availableRoom value
+                    int currAvailableRooms = ((Number) room.get("availableRoom")).intValue();
+                    int newAvailableRooms = currAvailableRooms + 1;
+                    room.put("availableRoom", newAvailableRooms);
+                    
+                    // Write the updated JSON data back to the file
+                    try (FileWriter writer = new FileWriter(filePath)) {
+                        writer.write(roomData.toJSONString());
+                        System.out.println("Successfully updated availableRoom for " + roomName + ".");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    
+                    return;
+                }
+            }
+            
+            // If no matching room was found, print an error message
+            System.out.println("Could not find room with name: " + roomName);
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // delete transaction data
+    public static void deleteTransaction(String filePath, int refNum) {
+        JSONParser parser = new JSONParser();
+        JSONArray transactionArray;
+        try {
+            // Read the JSON file and parse it into a JSONArray
+            FileReader fileReader = new FileReader(filePath);
+            Object obj = parser.parse(fileReader);
+            transactionArray = (JSONArray) obj;
+    
+            // Find the object with the matching ref number and remove it from the array
+            for (int i = 0; i < transactionArray.size(); i++) {
+                JSONObject transaction = (JSONObject) transactionArray.get(i);
+                long ref = (long) transaction.get("Ref");
+                if (ref == refNum) {
+                    transactionArray.remove(i);
+                    break;
+                }
+            }
+    
+            // Write the updated JSONArray back to the file
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write(transactionArray.toJSONString());
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteRefData(int refNo) {
+        deleteTransaction("C:\\Users\\Jerome Pascual\\Desktop\\project_clone\\tankS5-java-project\\src\\jsonData\\transaction-data.json", refNo);
     }
 }
